@@ -1,0 +1,9 @@
+.DS_Store
+tmp/
+
+# Draft design variants kept locally but not published.
+mountain.html
+mountain.css
+themed.html
+themed.css
+assets/mountain-template.png
