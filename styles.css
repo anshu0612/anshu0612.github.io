@@ -35,6 +35,13 @@ a:hover {
   color: var(--coral);
 }
 
+.icon-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 h1,
 h2,
 p {
@@ -184,6 +191,33 @@ footer p {
   font-size: inherit;
   font-weight: 400;
   white-space: normal;
+}
+
+.repo-link,
+.video-link,
+.huggingface-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.24em;
+}
+
+.repo-link svg,
+.video-link svg,
+.huggingface-link svg {
+  width: 0.92em;
+  height: 0.92em;
+  flex: 0 0 auto;
+  fill: currentColor;
+  transform: translateY(0.1em);
+}
+
+.video-link svg {
+  width: 1.04em;
+}
+
+.huggingface-link svg {
+  width: 1.08em;
+  height: 1.08em;
 }
 
 @media (max-width: 680px) {
