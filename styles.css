@@ -160,6 +160,32 @@ footer p {
   vertical-align: top;
 }
 
+.list-label {
+  margin: 30px 0 -4px;
+  color: var(--soft-ink);
+  font-weight: 700;
+}
+
+.speaking-list li {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+}
+
+.speaking-list .item-year {
+  color: var(--soft-ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.speaking-list .item-detail {
+  color: inherit;
+  font-size: inherit;
+  font-weight: 400;
+  white-space: normal;
+}
+
 @media (max-width: 680px) {
   .page {
     width: min(100% - 28px, 900px);
@@ -186,6 +212,11 @@ footer p {
 
   section {
     padding: 34px 0;
+  }
+
+  .speaking-list li {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 
   .paper-list span {
