@@ -195,7 +195,8 @@ footer p {
 
 .repo-link,
 .video-link,
-.huggingface-link {
+.huggingface-link,
+.slides-link {
   display: inline-flex;
   align-items: baseline;
   gap: 0.24em;
@@ -218,6 +219,16 @@ footer p {
 .huggingface-link svg {
   width: 1.08em;
   height: 1.08em;
+}
+
+.slides-link .link-emoji {
+  color: currentColor;
+  display: inline-block;
+  font-size: 0.95em;
+  font-weight: 400;
+  transform: translateY(0.02em);
+  vertical-align: baseline;
+  white-space: normal;
 }
 
 @media (max-width: 680px) {
