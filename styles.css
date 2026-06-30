@@ -196,7 +196,8 @@ footer p {
 .repo-link,
 .video-link,
 .huggingface-link,
-.slides-link {
+.slides-link,
+.poster-link {
   display: inline-flex;
   align-items: baseline;
   gap: 0.24em;
@@ -221,7 +222,8 @@ footer p {
   height: 1.08em;
 }
 
-.slides-link .link-emoji {
+.slides-link .link-emoji,
+.poster-link .link-emoji {
   color: currentColor;
   display: inline-block;
   font-size: 0.95em;
