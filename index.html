@@ -6,7 +6,7 @@
     <title>Anshu Singh</title>
     <meta
       name="description"
-      content="Anshu Singh is an Applied AI Research Engineer in Singapore working on synthetic data, multimodal AI, and AI evaluation."
+      content="Anshu Singh is an Applied AI Research Engineer in Singapore working on generative AI for images and video, multimodal foundation models, and synthetic data."
     >
     <meta name="theme-color" content="#fbfaf6">
     <!-- Privacy-friendly analytics by Plausible -->
@@ -21,7 +21,431 @@
       plausible.init();
     </script>
     <link rel="icon" href="assets/profile.png">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+:root {
+  --paper: #fbfaf6;
+  --ink: #222622;
+  --soft-ink: #555f59;
+  --line: #d8d1bf;
+  --blue: #315f79;
+  --green: #5f7d64;
+  --coral: #c97862;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.68;
+}
+
+a {
+  color: var(--blue);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--coral);
+}
+
+.icon-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2 {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 3.4rem;
+}
+
+h2 {
+  margin: 0 0 16px;
+  font-size: 1.55rem;
+}
+
+p {
+  margin-bottom: 18px;
+}
+
+.page {
+  width: min(900px, calc(100% - 36px));
+  margin: 0 auto;
+  padding: 36px 0 64px;
+}
+
+.masthead {
+  padding: 10px 0 34px;
+  border-bottom: 1px solid var(--line);
+}
+
+.topnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  justify-content: flex-end;
+  margin-bottom: 72px;
+  color: var(--soft-ink);
+  font-size: 0.95rem;
+}
+
+.topnav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.topnav a:hover {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 42px;
+  align-items: start;
+}
+
+.portrait {
+  width: 280px;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 34%;
+}
+
+.hello {
+  margin-bottom: 0;
+  color: var(--green);
+  font-size: 0.95rem;
+}
+
+.lead {
+  color: #313833;
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+section {
+  padding: 42px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+footer {
+  padding-top: 36px;
+}
+
+footer p {
+  margin-bottom: 0;
+}
+
+.paper-list {
+  margin: 18px 0 0;
+  padding-left: 1.15rem;
+  list-style: disc;
+}
+
+.paper-list li {
+  margin: 0 0 18px;
+}
+
+.paper-list li:last-child {
+  margin-bottom: 0;
+}
+
+.paper-list span {
+  display: inline;
+  width: auto;
+  color: var(--soft-ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.list-label {
+  margin: 30px 0 -4px;
+  color: var(--soft-ink);
+  font-weight: 700;
+}
+
+.speaking-list li {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+}
+
+.speaking-list .item-year {
+  color: var(--soft-ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.speaking-list .item-detail {
+  color: inherit;
+  font-size: inherit;
+  font-weight: 400;
+  white-space: normal;
+}
+
+.repo-link,
+.video-link,
+.huggingface-link,
+.slides-link,
+.poster-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.24em;
+}
+
+.repo-link svg,
+.video-link svg,
+.huggingface-link svg {
+  width: 0.92em;
+  height: 0.92em;
+  flex: 0 0 auto;
+  fill: currentColor;
+  transform: translateY(0.1em);
+}
+
+.video-link svg {
+  width: 1.04em;
+}
+
+.huggingface-link svg {
+  width: 1.08em;
+  height: 1.08em;
+}
+
+.slides-link .link-emoji,
+.poster-link .link-emoji {
+  color: currentColor;
+  display: inline-block;
+  font-size: 0.95em;
+  font-weight: 400;
+  transform: translateY(0.02em);
+  vertical-align: baseline;
+  white-space: normal;
+}
+
+@media (max-width: 680px) {
+  .page {
+    width: min(100% - 28px, 900px);
+    padding-top: 24px;
+  }
+
+  .topnav {
+    justify-content: flex-start;
+    margin-bottom: 44px;
+  }
+
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .portrait {
+    width: 200px;
+  }
+
+  h1 {
+    font-size: 2.9rem;
+  }
+
+  section {
+    padding: 34px 0;
+  }
+
+  .speaking-list li {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .paper-list span {
+    white-space: normal;
+  }
+}
+
+/* ---- Featured work ---------------------------------------------------- */
+.work-card {
+  margin-top: 18px;
+  padding: 26px 26px 22px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fdfcf9;
+}
+
+.work-head h3 {
+  margin: 0 0 8px;
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  font-size: 1.22rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.work-sub {
+  margin: 0 0 20px;
+  color: var(--soft-ink);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.work-media {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.media-tile {
+  margin: 0;
+}
+
+.media-tile video,
+.media-tile img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #f1eee6,
+      #f1eee6 10px,
+      #ece8de 10px,
+      #ece8de 20px
+    );
+}
+
+.media-tile figcaption {
+  margin-top: 8px;
+  color: var(--soft-ink);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.tag {
+  display: inline-block;
+  margin-right: 0.35em;
+  padding: 0.06em 0.5em;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  vertical-align: 0.08em;
+}
+
+.tag-unsafe {
+  color: #8a3a2a;
+  background: #f4ddd5;
+}
+
+.tag-safe {
+  color: #3f5a44;
+  background: #dfe9df;
+}
+
+.work-body p {
+  margin-bottom: 14px;
+}
+
+.work-schema {
+  margin: 0 0 4px;
+  padding-left: 1.15rem;
+  list-style: disc;
+}
+
+.work-schema li {
+  margin-bottom: 7px;
+  color: #313833;
+}
+
+.work-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.work-links a {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.paper-cta {
+  padding: 0.34em 0.85em;
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.paper-cta:hover {
+  color: var(--paper);
+  background: var(--blue);
+}
+
+.availability {
+  margin-top: 22px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--green);
+  background: #f3f5ef;
+  border-radius: 0 8px 8px 0;
+  font-size: 1rem;
+}
+
+@media (max-width: 680px) {
+  .work-card {
+    padding: 20px 18px 18px;
+  }
+
+  .work-media {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .media-tile video,
+  .media-tile img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+    </style>
   </head>
   <body>
     <svg aria-hidden="true" class="icon-defs">
@@ -39,6 +463,7 @@
     <main class="page">
       <header class="masthead">
         <nav class="topnav" aria-label="Primary navigation">
+          <a href="#work">work</a>
           <a href="#research">research</a>
           <a href="#talks">presentations</a>
           <a href="#writing">writing</a>
@@ -52,23 +477,82 @@
             <p class="hello">Hi, I am</p>
             <h1>Anshu.</h1>
             <p class="lead">
-              I am an Applied AI Research Engineer based in Singapore, working on synthetic data, multimodal AI, and AI evaluation.
+              I am an Applied AI Research Engineer in Singapore. I build and evaluate generative and multimodal systems &mdash; most recently synthetic video generation for safety-critical computer vision.
             </p>
             <p>
-              At <a href="https://www.tech.gov.sg/" target="_blank" rel="noreferrer">GovTech Singapore</a>, I build and study AI systems for real-world use cases. I was one of the core contributors behind <a href="https://mirage.gov.sg/" target="_blank" rel="noreferrer">Mirage</a>, the government's synthetic data generation platform, researching solution gaps and helping design the core engine so it could be more accessible across users and use cases. I also initiated and led <a href="https://build.tech.gov.sg/projects/2025/DataSharingAssist" target="_blank" rel="noreferrer">DataSharingAssist</a>, an AI-powered tool for data privacy assessment and data-sharing guidance that later inspired this year's <a href="https://build.tech.gov.sg/" target="_blank" rel="noreferrer">Build for Good</a> hackathon.
+              My recent research generates rare, hazardous construction scenarios that are effectively impossible to capture in the real world, then evaluates both the realism of the generated video and the downstream detection it enables. This work was accepted at the <a href="https://syndata4cv.github.io/" target="_blank" rel="noreferrer">CVPR 2026 SynData4CV workshop</a> and extended into an ACM Multimedia Dataset Track submission. More on this <a href="#work">below</a>.
             </p>
             <p>
-              My recent research explores synthetic video generation and evaluation for safety-critical computer vision tasks, including detecting workers under suspended loads. This work was accepted at the <a href="https://syndata4cv.github.io/" target="_blank" rel="noreferrer">CVPR SynData4CV workshop</a> and extended into an ACM Multimedia Dataset Track submission.
+              At <a href="https://www.tech.gov.sg/" target="_blank" rel="noreferrer">GovTech Singapore</a>, I take applied AI from research to production. I was a core contributor to <a href="https://mirage.gov.sg/" target="_blank" rel="noreferrer">Mirage</a>, the government's synthetic-data platform, where I helped design the model-selection engine spanning copula-, VAE-, GAN-, and diffusion-based generators. I also initiated <a href="https://build.tech.gov.sg/projects/2025/DataSharingAssist" target="_blank" rel="noreferrer">DataSharingAssist</a>, an AI tool for data-sharing guidance that inspired this year's <a href="https://build.tech.gov.sg/" target="_blank" rel="noreferrer">Build for Good</a> hackathon.
             </p>
             <p>
-              Before GovTech, I was a Research Assistant at the NUS Centre for Research in Privacy Technologies, where I worked on computer vision for human attribute prediction under constrained visual settings, advised by Prof. <a href="https://www.comp.nus.edu.sg/cs/people/mohan/" target="_blank" rel="noreferrer">Mohan Kankanhalli</a> and Dr. <a href="https://sites.google.com/site/fanshaojing/" target="_blank" rel="noreferrer">Shaojing Fan</a>. I hold a Masters in AI specialisation from the National University of Singapore.
+              Before GovTech, I was a Research Assistant at the NUS Centre for Research in Privacy Technologies, working on computer vision for human-attribute prediction under constrained visual settings, advised by Prof. <a href="https://www.comp.nus.edu.sg/cs/people/mohan/" target="_blank" rel="noreferrer">Mohan Kankanhalli</a> and Dr. <a href="https://sites.google.com/site/fanshaojing/" target="_blank" rel="noreferrer">Shaojing Fan</a>. I hold a Master's in AI from the National University of Singapore.
             </p>
-            <p>
-              I enjoy collaborating with researchers, engineers, and practitioners to turn applied research into practical AI systems with real-world impact.
+            <p class="availability">
+              I&rsquo;m currently <strong>open to applied research engineer roles</strong> in generative AI and multimodal systems &mdash; feel free to <a href="#contact">reach out</a>.
             </p>
           </div>
         </div>
       </header>
+
+      <section id="work">
+        <h2>Featured work</h2>
+        <article class="work-card">
+          <div class="work-head">
+            <h3>SynthSite &mdash; Synthetic Video Generation for Safety-Critical Vision</h3>
+            <p class="work-sub">
+              A benchmark of rare, safety-critical construction scenarios &mdash; synthesized with state-of-the-art video models and evaluated with a structured realism-and-detection protocol.
+            </p>
+          </div>
+
+          <!--
+            MEDIA: drop 3 short clips or GIFs into assets/ and they will render here.
+            Recommended: 3-5s muted, looping .mp4 (or .gif) exported from the benchmark.
+            Replace each poster/src below. If you only have stills, swap <video> for <img>.
+          -->
+          <div class="work-media" role="group" aria-label="Sample generated clips from the SynthSite benchmark">
+            <figure class="media-tile">
+              <video muted loop autoplay playsinline poster="assets/synthsite/clip-unsafe-1.jpg">
+                <source src="assets/synthsite/clip-unsafe-1.mp4" type="video/mp4">
+              </video>
+              <figcaption><span class="tag tag-unsafe">Unsafe</span> Worker in the fall zone under a suspended load</figcaption>
+            </figure>
+            <figure class="media-tile">
+              <video muted loop autoplay playsinline poster="assets/synthsite/clip-unsafe-2.jpg">
+                <source src="assets/synthsite/clip-unsafe-2.mp4" type="video/mp4">
+              </video>
+              <figcaption><span class="tag tag-unsafe">Unsafe</span> Multiple workers beneath a lowering beam</figcaption>
+            </figure>
+            <figure class="media-tile">
+              <video muted loop autoplay playsinline poster="assets/synthsite/clip-safe-1.jpg">
+                <source src="assets/synthsite/clip-safe-1.mp4" type="video/mp4">
+              </video>
+              <figcaption><span class="tag tag-safe">Safe</span> Load suspended, workers clear of the fall zone</figcaption>
+            </figure>
+          </div>
+
+          <div class="work-body">
+            <p>
+              Safety-analytics models need footage of dangerous events &mdash; workers standing under suspended loads &mdash; that is unethical and impractical to capture on real sites. I generate these scenarios synthetically with frontier and open video models (e.g.&nbsp;Sora&nbsp;2&nbsp;Pro, Veo&nbsp;3.1, Wan2.2), curate them with vision-language models, and release a labelled benchmark for <em>worker-under-suspended-load</em> detection.
+            </p>
+            <p>
+              Each clip is scored with a structured evaluation schema that separates <strong>generation quality</strong> from <strong>task difficulty</strong>, so the benchmark measures whether a detector actually reasons about the hazard rather than exploiting artifacts:
+            </p>
+            <ul class="work-schema">
+              <li><strong>Hazard rubric</strong> &mdash; visible suspension, worker-in-fall-zone, &ge;1s persistence &rarr; safe / unsafe.</li>
+              <li><strong>Realism</strong> &mdash; scene plausibility, geometry, motion, and temporal continuity.</li>
+              <li><strong>Complexity</strong> &mdash; occlusion, clutter, perspective, small-object and depth ambiguity.</li>
+              <li><strong>QC flags</strong> &mdash; hallucination, temporal inconsistency, physical implausibility.</li>
+            </ul>
+          </div>
+
+          <div class="work-links">
+            <a class="paper-cta" href="https://openreview.net/forum?id=dMfhFmDWsg" target="_blank" rel="noreferrer">Paper (SynData4CV, CVPR 2026)</a>
+            <a class="huggingface-link" href="https://huggingface.co/datasets/govtech/SynthSite" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-huggingface"></use></svg>Dataset</a>
+            <a class="poster-link" href="assets/cvpr-2026-synthsite-poster.pdf" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">&#128444;&#65039;</span>Poster</a>
+          </div>
+        </article>
+      </section>
 
       <section id="research">
         <h2>Research</h2>
@@ -115,11 +599,11 @@
           </li>
           <li>
             <span>Apr 2026.</span>
-            Hosted <a href="https://lorong.ai/" target="_blank" rel="noreferrer">Lorong AI</a> Paper Club: <a href="https://luma.com/z4b2koud" target="_blank" rel="noreferrer">How Multimodal Models Are Actually Built: From CLIP to Qwen2.5-VL</a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1woaNFyc_mWGukAUen_wFqowRn724Wd4Wy_gN6rRIF5o/edit?slide=id.p1#slide=id.p1" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>).
+            Hosted <a href="https://lorong.ai/" target="_blank" rel="noreferrer">Lorong AI</a> Paper Club: <a href="https://luma.com/z4b2koud" target="_blank" rel="noreferrer">How Multimodal Models Are Actually Built: From CLIP to Qwen2.5-VL</a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1woaNFyc_mWGukAUen_wFqowRn724Wd4Wy_gN6rRIF5o/edit?slide=id.p1#slide=id.p1" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">&#128202;</span>slides</a>).
           </li>
           <li>
             <span>2026.</span>
-            Hosted Lorong AI Paper Club: <a href="https://luma.com/y7825sm1" target="_blank" rel="noreferrer">How Research Agentic Systems Are Actually Built: From ReAct to the AI Scientist</a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1XT6Vi8Xk3TNwxxp4rzr6FzrOcAYTuT4qq520SPiWNPo/edit?usp=sharing" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>).
+            Hosted Lorong AI Paper Club: <a href="https://luma.com/y7825sm1" target="_blank" rel="noreferrer">How Research Agentic Systems Are Actually Built: From ReAct to the AI Scientist</a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1XT6Vi8Xk3TNwxxp4rzr6FzrOcAYTuT4qq520SPiWNPo/edit?usp=sharing" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">&#128202;</span>slides</a>).
           </li>
           <li>
             Reviewer, <a href="https://www.isaca.org/-/media/files/isacadp/project/isaca/resources/white-papers/exploring-practical-considerations-and-applications-for-privacy-enhancing-technologies_0524.pdf" target="_blank" rel="noreferrer">ISACA whitepaper on Privacy-Enhancing Technologies</a>.
@@ -130,31 +614,31 @@
         <ul class="paper-list speaking-list">
           <li>
             <span class="item-year">2026.</span>
-            <span class="item-detail"><a href="https://openreview.net/forum?id=dMfhFmDWsg" target="_blank" rel="noreferrer"><em>SynthSite: Privacy-Aware Synthetic Video Benchmarking for Worker-Under-Suspended-Load Detection</em></a> (<a class="poster-link" href="assets/cvpr-2026-synthsite-poster.pdf" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">🖼️</span>poster</a>), presented at the 3rd Workshop on Synthetic Data for Computer Vision (SynData4CV), CVPR 2026, Denver, USA 🇺🇸.</span>
+            <span class="item-detail"><a href="https://openreview.net/forum?id=dMfhFmDWsg" target="_blank" rel="noreferrer"><em>SynthSite: Privacy-Aware Synthetic Video Benchmarking for Worker-Under-Suspended-Load Detection</em></a> (<a class="poster-link" href="assets/cvpr-2026-synthsite-poster.pdf" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">&#128444;&#65039;</span>poster</a>), presented at the 3rd Workshop on Synthetic Data for Computer Vision (SynData4CV), CVPR 2026, Denver, USA &#127482;&#127480;.</span>
           </li>
           <li>
             <span class="item-year">2025.</span>
-            <span class="item-detail"><em>Empowering Government Agencies in Singapore for Confident Data Sharing: Design and Early Insights from an AI-powered Tool for Data Privacy and Quality Assessment</em>, <a href="https://ieee-isope.org/past-events/isope-2025/program/" target="_blank" rel="noreferrer">IEEE Symposium on Privacy Expectations (ISoPE)</a>, New York, USA 🇺🇸.</span>
+            <span class="item-detail"><em>Empowering Government Agencies in Singapore for Confident Data Sharing: Design and Early Insights from an AI-powered Tool for Data Privacy and Quality Assessment</em>, <a href="https://ieee-isope.org/past-events/isope-2025/program/" target="_blank" rel="noreferrer">IEEE Symposium on Privacy Expectations (ISoPE)</a>, New York, USA &#127482;&#127480;.</span>
           </li>
           <li>
             <span class="item-year">2025.</span>
-            <span class="item-detail"><a class="video-link" href="https://youtu.be/mbdA0ObrBac?t=1366" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Enabling Better Guidance for Data Classifications through an AI-assisted Educational Tool</em></a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1ZppPz1E0i8Fbh2ROeRVgm1DRsdGmPsSe/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>), GovTech STACK Meetup.</span>
+            <span class="item-detail"><a class="video-link" href="https://youtu.be/mbdA0ObrBac?t=1366" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Enabling Better Guidance for Data Classifications through an AI-assisted Educational Tool</em></a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1ZppPz1E0i8Fbh2ROeRVgm1DRsdGmPsSe/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">&#128202;</span>slides</a>), GovTech STACK Meetup.</span>
           </li>
           <li>
             <span class="item-year">2024.</span>
-            <span class="item-detail"><a class="video-link" href="https://youtu.be/N_qD8HOmCHw?t=91" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Bridge the Usability Gap For Widespread Adoption Of Differential Privacy</em></a>, Sydney Privacy Workshop, University of Sydney, Sydney, Australia 🇦🇺.</span>
+            <span class="item-detail"><a class="video-link" href="https://youtu.be/N_qD8HOmCHw?t=91" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Bridge the Usability Gap For Widespread Adoption Of Differential Privacy</em></a>, Sydney Privacy Workshop, University of Sydney, Sydney, Australia &#127462;&#127482;.</span>
           </li>
           <li>
             <span class="item-year">2024.</span>
-            <span class="item-detail"><a class="repo-link" href="https://github.com/dsaidgovsg/benchmarking-synthetic-data-generators" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-github"></use></svg><em>Workshop on synthetic data</em></a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1AS1eI3k7G--fZkDGCUbTx8UWxRzsRhfc/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>), GovTech STACK Developer Conference.</span>
+            <span class="item-detail"><a class="repo-link" href="https://github.com/dsaidgovsg/benchmarking-synthetic-data-generators" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-github"></use></svg><em>Workshop on synthetic data</em></a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1AS1eI3k7G--fZkDGCUbTx8UWxRzsRhfc/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">&#128202;</span>slides</a>), GovTech STACK Developer Conference.</span>
           </li>
           <li>
             <span class="item-year">2024-2025.</span>
-            <span class="item-detail">Two Lorong AI sessions on <a class="slides-link" href="https://docs.google.com/presentation/d/1HBnbylS7w37RZjriFHOXxpV5Zj2py8Cd/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span><em>synthetic data generation</em></a>.</span>
+            <span class="item-detail">Two Lorong AI sessions on <a class="slides-link" href="https://docs.google.com/presentation/d/1HBnbylS7w37RZjriFHOXxpV5Zj2py8Cd/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">&#128202;</span><em>synthetic data generation</em></a>.</span>
           </li>
           <li>
             <span class="item-year">2023.</span>
-            <span class="item-detail"><a class="video-link" href="https://youtu.be/gTCKmPX6Nt0?t=655" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Privacy in the Public Sector: Lessons Learned and Strategies for Success</em></a>, USENIX Conference on Privacy Engineering Practice and Respect (PEPR), California, USA 🇺🇸.</span>
+            <span class="item-detail"><a class="video-link" href="https://youtu.be/gTCKmPX6Nt0?t=655" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Privacy in the Public Sector: Lessons Learned and Strategies for Success</em></a>, USENIX Conference on Privacy Engineering Practice and Respect (PEPR), California, USA &#127482;&#127480;.</span>
           </li>
           <li>
             <span class="item-year">2023.</span>
@@ -181,19 +665,13 @@
             <a href="https://medium.com/dsaid-govtech/synthetic-data-navigating-its-methodologies-applications-and-challenges-9af7e5e4208d" target="_blank" rel="noreferrer">Synthetic Data: Navigating Its Methodologies, Applications and Challenges</a>
           </li>
           <li>
+            <a href="https://randomized0612.medium.com/gpt-4-sparks-of-agi-capabilities-and-limitations-2bce0ed45a83" target="_blank" rel="noreferrer">GPT-4 &mdash; Sparks of AGI, capabilities, and limitations</a>
+          </li>
+          <li>
             <a href="https://medium.com/dsaid-govtech/protecting-your-data-privacy-with-differential-privacy-an-introduction-abee1d7fcb63" target="_blank" rel="noreferrer">Sharing Data with Differential Privacy: A Primer</a>
           </li>
           <li>
-            <a href="https://medium.com/dsaid-govtech/practitioners-guide-to-accessing-emerging-differential-privacy-tools-861acddb2a44" target="_blank" rel="noreferrer">Practitioners' Guide to Accessing Emerging Differential Privacy Tools</a>
-          </li>
-          <li>
             <a href="https://randomized0612.medium.com/facing-ais-winning-facade-with-face-images-e2b46262b507" target="_blank" rel="noreferrer">Why Should You Care About Facial Privacy?</a>
-          </li>
-          <li>
-            <a href="https://randomized0612.medium.com/the-role-of-artificial-intelligence-in-future-technology-4f0b02e22192" target="_blank" rel="noreferrer">The Role of Artificial Intelligence in Future Technology</a>
-          </li>
-          <li>
-            <a href="https://randomized0612.medium.com/gpt-4-sparks-of-agi-capabilities-and-limitations-2bce0ed45a83" target="_blank" rel="noreferrer">GPT-4 &mdash; Sparks of AGI, capabilities, and limitations</a>
           </li>
         </ul>
       </section>
@@ -201,7 +679,7 @@
       <section id="learning">
         <h2>Things I am picking up</h2>
         <p>
-          Outside work, I love playing and learning tennis 🎾. I am still picking it up, but that is exactly what I enjoy about it: the process of observing my own game without judgment and improving through practice.
+          Outside work, I love playing and learning tennis &#127934;. I am still picking it up, but that is exactly what I enjoy about it: the process of observing my own game without judgment and improving through practice.
         </p>
         <p>
           I also see myself as an educator and a creative person. With that goal in mind, I started <a href="https://www.youtube.com/@droolingoverai" target="_blank" rel="noreferrer">DroolingOverAI</a>, a YouTube channel where I hope to teach AI topics in a simple, engaging, and practical way. Going forward, <a href="https://anshu0612.substack.com/" target="_blank" rel="noreferrer">Substack</a> will be my dedicated space for writing about what I am learning, exploring, and thinking about in AI.
