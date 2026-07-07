@@ -40,9 +40,10 @@
       <header class="masthead">
         <nav class="topnav" aria-label="Primary navigation">
           <a href="#systems">selected work</a>
+          <a href="#experience">experience</a>
           <a href="#research">research</a>
           <a href="#talks">presentations</a>
-          <a href="#writing">writing</a>
+          <!-- <a href="#writing">writing</a> -->
           <a href="#learning">beyond work</a>
           <a href="#contact">contact</a>
         </nav>
@@ -53,16 +54,13 @@
             <p class="hello">Hi, I am</p>
             <h1>Anshu.</h1>
             <p class="lead">
-              I am an Applied AI Research Engineer based in Singapore, working on multimodal AI, computer vision, and synthetic data. I own the full lifecycle of what I build: discovery with stakeholders, rapid prototypes, iteration with users, and production deployment.
+              I am an Applied AI Research Engineer based in Singapore, working on <strong>multimodal AI</strong>, <strong>computer vision</strong>, and <strong>synthetic data</strong>. I love taking novel product ideas from scratch to production &mdash; discovery with stakeholders, rapid prototypes, iteration with users, and deployment &mdash; with rigorous evaluation behind everything I build.
             </p>
             <p>
-              At <a href="https://www.tech.gov.sg/" target="_blank" rel="noreferrer">GovTech Singapore</a>, I turn applied research into products for the whole of Singapore Government. As a core contributor to <a href="https://mirage.gov.sg/" target="_blank" rel="noreferrer">Mirage</a>, the government's synthetic data generation platform, I designed and wrote its core engine &mdash; the platform is now used by 30+ agencies. I also created and led <a href="https://build.tech.gov.sg/projects/2025/DataSharingAssist" target="_blank" rel="noreferrer">DataSharingAssist</a>, an AI assistant for data classification and data-sharing guidance that gained traction with 20+ agencies and inspired this year's <a href="https://build.tech.gov.sg/" target="_blank" rel="noreferrer">Build for Good</a> hackathon. Alongside platform work, I consult for agencies on custom synthetic data problems across tabular, time-series, and unstructured data.
+              At <a href="https://www.tech.gov.sg/" target="_blank" rel="noreferrer">GovTech Singapore</a>, I turn applied research into products for the whole of Singapore Government. I designed <a href="https://mirage.gov.sg/" target="_blank" rel="noreferrer">Mirage</a>, the government's synthetic data platform &mdash; from user engagements, surveys, and vendor benchmarking to writing its core engine &mdash; now used by 30+ agency teams. I also ideated and product-led <a href="https://build.tech.gov.sg/projects/2025/DataSharingAssist" target="_blank" rel="noreferrer">DataSharingAssist</a>, an AI assistant for data classification (20+ agencies), selected into the government-wide <a href="https://build.tech.gov.sg/" target="_blank" rel="noreferrer">Build for Good</a> hackathon for its high impact. Alongside, I consult for agencies on custom synthetic data problems across tabular, time-series, and unstructured data.
             </p>
             <p>
-              My recent research explores synthetic video generation and evaluation for safety-critical computer vision tasks, including detecting workers under suspended loads. This work was accepted at the <a href="https://syndata4cv.github.io/" target="_blank" rel="noreferrer">CVPR SynData4CV workshop</a> and extended into an ACM Multimedia Dataset Track submission.
-            </p>
-            <p>
-              Before GovTech, I was a Research Assistant at the NUS Centre for Research in Privacy Technologies, where I worked on computer vision for human attribute prediction under constrained visual settings, advised by Prof. <a href="https://www.comp.nus.edu.sg/cs/people/mohan/" target="_blank" rel="noreferrer">Mohan Kankanhalli</a> and Dr. <a href="https://sites.google.com/site/fanshaojing/" target="_blank" rel="noreferrer">Shaojing Fan</a>. I hold a Masters in AI specialisation from the National University of Singapore.
+              My recent research explores <strong>synthetic video generation</strong> and evaluation for safety-critical computer vision tasks, published at the <a href="https://syndata4cv.github.io/" target="_blank" rel="noreferrer">CVPR 2026 SynData4CV workshop</a> and extended into an ACM Multimedia Dataset Track submission. I hold a Masters in AI from the National University of Singapore.
             </p>
           </div>
         </div>
@@ -72,13 +70,14 @@
         <h2>Selected work</h2>
 
         <article class="system">
-          <h3><a href="https://huggingface.co/datasets/govtech/SynthSite" target="_blank" rel="noreferrer">SynthSite</a> &mdash; Privacy-aware synthetic video generation &amp; benchmarking</h3>
+          <h3><a href="https://huggingface.co/datasets/govtech/SynthSite" target="_blank" rel="noreferrer">SynthSite</a> &mdash; Synthetic video generation &amp; benchmarking</h3>
           <p>
-            With <a href="https://www.linkedin.com/in/alejandroseif/" target="_blank" rel="noreferrer">Alejandro Seif</a>, I built SynthSite, a synthetic video pipeline for a safety-critical computer vision task: detecting workers under suspended loads on construction sites. The pipeline moves sensitive footage across a trust boundary through approved text intermediaries, then chains text-to-image seeding, video generation, and LoRA fine-tuning to produce both shareable and private variants &mdash; evaluated across diversity, complexity, and realism, with the dataset released on <a href="https://huggingface.co/datasets/govtech/SynthSite" target="_blank" rel="noreferrer">Hugging Face</a>. Published at the CVPR 2026 SynData4CV workshop and extended into an ACM Multimedia Dataset Track submission.
+            SynthSite began as a practical deployment problem &mdash; evaluating safety site-analytics vendors with almost no footage of rare hazards &mdash; and grew into research. It is a <strong>hybrid local&ndash;cloud video generation pipeline</strong> with human curation and safety annotation, LoRA fine-tuned to synthesize rare worker-under-suspended-load scenarios, with agency domain experts reviewing the outputs. Published at the CVPR 2026 SynData4CV workshop; dataset on <a href="https://huggingface.co/datasets/govtech/SynthSite" target="_blank" rel="noreferrer">Hugging Face</a>; extended into the ACM Multimedia Dataset Track.
           </p>
-          <figure class="system-figure">
+          <p class="tags">Video diffusion &middot; Wan2.2-I2V-A14B &middot; Qwen2.5-VL curation &middot; LoRA &middot; 227 rare scenarios &middot; VBench &middot; open-vocabulary detection</p>
+          <figure class="system-figure figure-medium">
             <a href="assets/cvpr2026.png" target="_blank" rel="noreferrer">
-              <img src="assets/cvpr2026_web.webp" alt="SynthSite privacy-aware synthetic video generation and evaluation pipeline" loading="lazy" decoding="async">
+              <img src="assets/cvpr2026_web.webp" alt="SynthSite synthetic video generation and evaluation pipeline" loading="lazy" decoding="async">
             </a>
             <figcaption>SynthSite generation pipeline and multi-dimensional evaluation &mdash; CVPR 2026</figcaption>
           </figure>
@@ -87,11 +86,12 @@
         <article class="system">
           <h3><a href="https://build.tech.gov.sg/projects/2025/DataSharingAssist" target="_blank" rel="noreferrer">DataSharingAssist</a> &rarr; Privacy Scientist</h3>
           <p>
-            I created and led DataSharingAssist, an AI assistant that helps agencies classify datasets and navigate data-sharing decisions. It grounds recommendations and justifications in government policies through retrieval, and exposes its full reasoning process to the user. The tool gained traction with 20+ agencies; I worked directly with data teams and policymakers across five of them, iterating rapidly on their feedback. I presented the approach at the <a href="https://ieee-isope.org/past-events/isope-2025/program/" target="_blank" rel="noreferrer">IEEE Symposium on Privacy Expectations</a> in New York.
+            I ideated and product-led DataSharingAssist, an AI assistant for explainable data classification and data-sharing guidance &mdash; recommendations and justifications grounded in government policies through retrieval, with the full reasoning process visible to the user. It gained traction with 20+ agencies through in-person pilots with data teams and policymakers, was presented at the <a href="https://ieee-isope.org/past-events/isope-2025/program/" target="_blank" rel="noreferrer">IEEE Symposium on Privacy Expectations</a> in New York, and was selected into the government-wide <a href="https://build.tech.gov.sg/" target="_blank" rel="noreferrer">Build for Good</a> hackathon for its high impact.
           </p>
           <p>
-            I am now evolving it into <strong>Privacy Scientist</strong>: a multimodal, agentic system that pairs document intelligence &mdash; OCR, vision, and language understanding over documents, scans, tables, and images &mdash; with orchestrated agents for policy resolution, mitigation search, evaluation, and red-teaming, searching for the right privacy&ndash;utility balance with human verification in the loop.
+            I am now evolving it into <strong>Privacy Scientist</strong>: a multimodal, agentic system pairing document intelligence &mdash; OCR, vision, and language understanding &mdash; with orchestrated agents for policy resolution, mitigation search, evaluation, and red-teaming, optimizing the privacy&ndash;utility trade-off with human verification in the loop.
           </p>
+          <p class="tags">Explainable classification &middot; RAG + vector DB &middot; RAG evaluation &middot; HCI-informed design &middot; multimodal document AI &middot; agentic orchestration &middot; human-in-the-loop</p>
           <div class="figure-pair">
             <figure class="system-figure">
               <a href="assets/datasharingassist.png" target="_blank" rel="noreferrer">
@@ -111,8 +111,9 @@
         <article class="system">
           <h3><a href="https://mirage.gov.sg/" target="_blank" rel="noreferrer">Mirage</a> &mdash; Whole-of-Government synthetic data platform</h3>
           <p>
-            Mirage lets Singapore government agencies generate mock and synthetic data for software development, privacy-preserving data sharing, and AI/ML development. It is currently used by 30+ agencies. As a core contributor, I designed and wrote the generation engine, built model routing and cascading across generative methods, and developed its multi-dimensional privacy&ndash;utility evaluation. I benchmarked candidate approaches against vendor systems, ran user-needs surveys, and piloted the platform with agencies through to production.
+            Mirage is the government's self-service platform for mock and synthetic data generation, used in production by 30+ agency teams. I led the build-vs-buy evaluation against vendor systems, then built the generation stack in-house &mdash; PyTorch modeling across copula, VAE, GAN, and diffusion generators, adaptive model routing and cascading, automated hyperparameter optimization, and multi-dimensional privacy&ndash;utility evaluation.
           </p>
+          <p class="tags">PyTorch &middot; VAE / GAN / diffusion &middot; model routing &amp; cascades &middot; HPO &middot; AWS</p>
           <figure class="system-figure figure-compact">
             <a href="assets/mirage.png" target="_blank" rel="noreferrer">
               <img src="assets/mirage_web.webp" alt="Mirage platform landing page" loading="lazy" decoding="async">
@@ -121,22 +122,30 @@
         </article>
       </section>
 
+      <section id="experience">
+        <h2>Experience</h2>
+        <ul class="paper-list speaking-list">
+          <li>
+            <span class="item-year">2022&ndash;now.</span>
+            <span class="item-detail"><strong>AI Research Engineer</strong>, Government Technology Agency (GovTech), Singapore &mdash; multimodal AI, generative models, and synthetic data products for the whole of Singapore Government.</span>
+          </li>
+          <li>
+            <span class="item-year">2020&ndash;2021.</span>
+            <span class="item-detail"><strong>Research Assistant (Computer Vision)</strong>, NUS Centre for Research in Privacy Technologies &mdash; human attribute prediction under privacy-preserving conditions, advised by Prof. <a href="https://www.comp.nus.edu.sg/cs/people/mohan/" target="_blank" rel="noreferrer">Mohan Kankanhalli</a> and Dr. <a href="https://sites.google.com/site/fanshaojing/" target="_blank" rel="noreferrer">Shaojing Fan</a>.</span>
+          </li>
+          <li>
+            <span class="item-year">2016&ndash;2019.</span>
+            <span class="item-detail"><strong>Software Engineer</strong>, DBS Bank and HashedIn Technologies (Deloitte) &mdash; customer-facing web products and zero-to-one internal tools, before moving into AI research and engineering.</span>
+          </li>
+          <li>
+            <span class="item-year">Education.</span>
+            <span class="item-detail"><strong>Master of Computing (Artificial Intelligence)</strong>, National University of Singapore &mdash; dissertation in computer vision.</span>
+          </li>
+        </ul>
+      </section>
+
       <section id="research">
         <h2>Research</h2>
-        <div class="figure-row">
-          <figure>
-            <a href="assets/acm2021.png" target="_blank" rel="noreferrer">
-              <img src="assets/acm2021_web.webp" alt="CHAPNet architecture for context-guided human attribute prediction" loading="lazy" decoding="async">
-            </a>
-            <figcaption>Context-guided attribute prediction &mdash; ACM Multimedia 2021 (Oral)</figcaption>
-          </figure>
-          <figure>
-            <a href="assets/synthetic_data_primer.png" target="_blank" rel="noreferrer">
-              <img src="assets/synthetic_data_primer_web.webp" alt="Overview page of the Synthetic Data Primer" loading="lazy" decoding="async">
-            </a>
-            <figcaption>Synthetic Data Primer &mdash; a whole-of-government playbook</figcaption>
-          </figure>
-        </div>
         <ul class="paper-list">
           <li>
             <span>2026.</span>
@@ -165,6 +174,20 @@
             ACM Multimedia 2021. [Oral]
           </li>
         </ul>
+        <div class="figure-row">
+          <figure>
+            <a href="assets/acm2021.png" target="_blank" rel="noreferrer">
+              <img src="assets/acm2021_web.webp" alt="CHAPNet architecture for context-guided human attribute prediction" loading="lazy" decoding="async">
+            </a>
+            <figcaption>ACM MM 2021 (Oral) &mdash; a diverse curated dataset, psychophysical &amp; statistical studies, and a novel PyTorch model (CHAPNet)</figcaption>
+          </figure>
+          <figure>
+            <a href="assets/synthetic_data_primer.png" target="_blank" rel="noreferrer">
+              <img src="assets/synthetic_data_primer_web.webp" alt="Overview page of the Synthetic Data Primer" loading="lazy" decoding="async">
+            </a>
+            <figcaption>Synthetic Data Primer &mdash; a whole-of-government playbook</figcaption>
+          </figure>
+        </div>
       </section>
 
       <section id="talks">
@@ -232,6 +255,7 @@
         </ul>
       </section>
 
+      <!-- Some writing: commented out per Anshu's request (2026-07-07); restore by removing this comment wrapper
       <section id="writing">
         <h2>Some writing</h2>
         <ul class="paper-list">
@@ -252,41 +276,43 @@
           </li>
         </ul>
       </section>
+      -->
 
       <section id="learning">
         <h2>Beyond work</h2>
         <p>
           Outside work, I love playing and learning tennis 🎾. I am still picking it up, but that is exactly what I enjoy about it: the process of observing my own game without judgment and improving through practice.
         </p>
+        <p class="list-label">Content creation</p>
         <p>
-          I also see myself as an educator, and I have recently started creating content on AI. Each platform holds just one piece so far &mdash; early days, but it is a long game I am committed to. <a href="https://anshu0612.substack.com/" target="_blank" rel="noreferrer">Substack</a> is my dedicated home for long-form writing, continuing from my earlier essays on <a href="https://medium.com/@randomized0612" target="_blank" rel="noreferrer">Medium</a>.
+          I have recently started creating content on AI &mdash; one piece per platform so far, a long game I am committed to. <a href="https://anshu0612.substack.com/" target="_blank" rel="noreferrer">Substack</a> is my dedicated home for long-form writing, continuing from my earlier essays on <a href="https://medium.com/@randomized0612" target="_blank" rel="noreferrer">Medium</a>.
         </p>
         <div class="media-cards">
           <div class="media-card">
-            <a href="https://anshu0612.substack.com/" target="_blank" rel="noreferrer">
+            <a href="https://anshu0612.substack.com/p/understanding-inference-economics" target="_blank" rel="noreferrer">
               <img src="assets/substack_web.webp" alt="Cover illustration of the essay Understanding Inference Economics with DeepSeek V4" loading="lazy" decoding="async">
             </a>
-            <span class="media-card-title"><a href="https://anshu0612.substack.com/" target="_blank" rel="noreferrer">Substack</a> <span class="media-card-tag">Writing</span></span>
-            <span class="media-card-desc">Long-form essays on AI systems. First post: <em><a href="https://anshu0612.substack.com/p/understanding-inference-economics" target="_blank" rel="noreferrer">Understanding Inference Economics with DeepSeek V4</a></em>.</span>
+            <span class="media-card-title"><a href="https://anshu0612.substack.com/p/understanding-inference-economics" target="_blank" rel="noreferrer">Understanding Inference Economics with DeepSeek V4</a> <span class="media-card-tag">Substack</span></span>
           </div>
           <div class="media-card">
             <a href="https://www.youtube.com/@droolingoverai" target="_blank" rel="noreferrer">
               <img src="assets/youtube_web.webp" alt="DroolingOverAI YouTube video on why synthetic data matters" loading="lazy" decoding="async">
             </a>
-            <span class="media-card-title"><a href="https://www.youtube.com/@droolingoverai" target="_blank" rel="noreferrer">DroolingOverAI</a> <span class="media-card-tag">YouTube</span></span>
-            <span class="media-card-desc">Simple, visual AI explainers. First video: <em>Why Synthetic Data Matters &mdash; a 7-minute explainer</em>.</span>
+            <span class="media-card-title"><a href="https://www.youtube.com/@droolingoverai" target="_blank" rel="noreferrer">Why Synthetic Data Matters &mdash; Simple 7-Minute Explainer</a> <span class="media-card-tag">YouTube</span></span>
           </div>
           <div class="media-card">
-            <a href="https://open.spotify.com/show/033J7LW2AJ7Xy3ibC7w0bx" target="_blank" rel="noreferrer">
+            <a href="https://open.spotify.com/episode/6avAOBLxxDabBzxp1h6OWN" target="_blank" rel="noreferrer">
               <img src="assets/spotify_web.webp" alt="AI Systems in Practice podcast episode on choosing GPUs" loading="lazy" decoding="async">
             </a>
-            <span class="media-card-title"><a href="https://open.spotify.com/show/033J7LW2AJ7Xy3ibC7w0bx" target="_blank" rel="noreferrer">AI Systems in Practice</a> <span class="media-card-tag">Podcast</span></span>
-            <span class="media-card-desc">The engineering behind AI systems. First episode: <em><a href="https://open.spotify.com/episode/6avAOBLxxDabBzxp1h6OWN" target="_blank" rel="noreferrer">The most powerful GPU is not always the right one for your AI system</a></em>.</span>
+            <span class="media-card-title"><a href="https://open.spotify.com/episode/6avAOBLxxDabBzxp1h6OWN" target="_blank" rel="noreferrer">The Most Powerful GPU Is Not Always the Right One for Your AI System</a> <span class="media-card-tag">Spotify</span></span>
           </div>
         </div>
       </section>
 
       <footer id="contact">
+        <p>
+          I am open to <strong>Applied AI, Research Engineer, ML Engineer, and Forward Deployed Engineer</strong> roles &mdash; and always happy to chat about multimodal AI, generative models, and synthetic data.
+        </p>
         <p>
           You can reach me at <a class="email-link" data-user="anshu.singh173" data-domain="gmail.com" href="#" aria-label="Email Anshu">email</a>, or find me on <a href="https://www.linkedin.com/in/anshu-singh/" target="_blank" rel="noreferrer">LinkedIn</a>, <a href="https://x.com/randomized0612" target="_blank" rel="noreferrer">X</a>, <a href="https://github.com/anshu0612" target="_blank" rel="noreferrer">GitHub</a>, <a href="https://anshu0612.substack.com/" target="_blank" rel="noreferrer">Substack</a>, <a href="https://medium.com/@randomized0612" target="_blank" rel="noreferrer">Medium</a>, and <a href="https://www.youtube.com/@droolingoverai" target="_blank" rel="noreferrer">YouTube</a>.
         </p>

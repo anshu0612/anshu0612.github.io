@@ -286,15 +286,26 @@ figcaption {
   line-height: 1.45;
 }
 
+.tags {
+  margin: -8px 0 14px;
+  color: var(--soft-ink);
+  font-size: 0.84rem;
+  letter-spacing: 0.01em;
+}
+
 .figure-compact {
   max-width: 440px;
+}
+
+.figure-medium {
+  max-width: 580px;
 }
 
 .figure-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 18px;
-  margin: 0 0 26px;
+  margin: 26px 0 0;
   max-width: 620px;
 }
 
