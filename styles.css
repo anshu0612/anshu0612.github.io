@@ -143,6 +143,16 @@ footer p {
   margin-bottom: 0;
 }
 
+.availability-note {
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  color: #30372f;
+  background: #f6f1e6;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--coral);
+  border-radius: 6px;
+}
+
 .paper-list {
   margin: 18px 0 0;
   padding-left: 1.15rem;
