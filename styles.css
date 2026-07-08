@@ -303,6 +303,10 @@ figcaption {
   letter-spacing: 0.01em;
 }
 
+.research-item-tags {
+  margin: 6px 0 0;
+}
+
 .figure-compact {
   max-width: 440px;
 }
@@ -313,14 +317,19 @@ figcaption {
 
 .figure-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
   margin: 26px 0 0;
-  max-width: 620px;
 }
 
 .figure-row figure {
   margin: 0;
+}
+
+.figure-row img {
+  height: 156px;
+  padding: 8px;
+  object-fit: contain;
 }
 
 .media-cards {
@@ -410,5 +419,10 @@ figcaption {
   .figure-pair,
   .media-cards {
     grid-template-columns: 1fr;
+  }
+
+  .figure-row img {
+    height: auto;
+    padding: 0;
   }
 }
