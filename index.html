@@ -38,11 +38,11 @@
     <main class="page">
       <header class="masthead">
         <nav class="topnav" aria-label="Primary navigation">
+          <a href="#blog">blogs</a>
           <a href="#systems">selected work</a>
           <a href="#experience">experience</a>
-          <a href="#research">research</a>
-          <a href="#talks">presentations</a>
-          <!-- <a href="#writing">writing</a> -->
+          <a href="#research">published research</a>
+          <a href="#talks">community</a>
           <a href="#learning">beyond work</a>
           <a href="#contact">contact</a>
         </nav>
@@ -55,49 +55,80 @@
             <p class="lead">
               I am an Applied AI Research Engineer based in Singapore, working on <strong>multimodal AI systems</strong>, <strong>generative modeling</strong>, and <strong>synthetic data</strong>. I enjoy turning real-world problems into AI products, using applied research and first-principles paper reading to identify promising ideas, then shaping them through rapid prototyping, user feedback, deployment, and rigorous evaluation.
             </p>
+            <!--
             <p>
               At <a href="https://www.tech.gov.sg/" target="_blank" rel="noreferrer">GovTech Singapore</a>, I turn applied research into products for the whole of Singapore Government. I designed <a href="https://mirage.gov.sg/" target="_blank" rel="noreferrer">Mirage</a>, the government's synthetic data platform &mdash; from user engagements, surveys, and vendor benchmarking to writing its core engine &mdash; now used by 30+ agency teams. I also ideated and product-led <a href="https://build.tech.gov.sg/projects/2025/DataSharingAssist" target="_blank" rel="noreferrer">DataSharingAssist</a>, an AI assistant for data classification (20+ agencies), selected into the government-wide <a href="https://build.tech.gov.sg/" target="_blank" rel="noreferrer">Build for Good</a> hackathon for its high impact. Alongside, I consult for agencies on custom synthetic data problems across tabular, time-series, and unstructured data.
             </p>
             <p>
               My recent research explores <strong>synthetic video generation</strong> and evaluation for safety-critical computer vision tasks, published at the <a href="https://syndata4cv.github.io/" target="_blank" rel="noreferrer">CVPR 2026 SynData4CV workshop</a> and extended into an ACM Multimedia Dataset Track submission. I hold a Masters in AI from the National University of Singapore.
             </p>
+            -->
           </div>
         </div>
       </header>
+
+      <section id="blog">
+        <h2>Blogs</h2>
+        <div class="home-blog-list">
+          <article class="home-blog-card">
+            <a class="home-blog-image" href="blogs/understanding-inference-economics.html">
+              <img src="assets/substack_web.webp" alt="Illustration for Understanding Inference Economics with DeepSeek V4" loading="lazy" decoding="async">
+            </a>
+            <h3>
+              <a href="blogs/understanding-inference-economics.html">Understanding Inference Economics with DeepSeek V4</a>
+            </h3>
+          </article>
+          <article class="home-blog-card">
+            <div class="home-blog-image">
+              <img src="assets/cvpr-2026-devver-review.png" alt="Watercolor illustration of Anshu at CVPR" loading="lazy" decoding="async">
+            </div>
+            <h3>CVPR 2026, Denver in Review (Coming soon)</h3>
+          </article>
+        </div>
+        <p class="blog-more">
+          More here <a href="https://medium.com/@randomized0612" target="_blank" rel="noreferrer">Medium</a>.
+        </p>
+      </section>
 
       <section id="systems">
         <h2>Selected work</h2>
 
         <article class="system">
-          <h3><a href="https://huggingface.co/datasets/govtech/SynthSite" target="_blank" rel="noreferrer">SynthSite</a> &mdash; Synthetic video generation &amp; benchmarking</h3>
-          <p>
-            SynthSite began as a practical deployment problem &mdash; evaluating safety site-analytics vendors with almost no footage of rare hazards &mdash; and grew into research. It is a <strong>hybrid local&ndash;cloud video generation pipeline</strong> with human curation and safety annotation, LoRA fine-tuned to synthesize rare worker-under-suspended-load scenarios, with agency domain experts reviewing the outputs. Published at the CVPR 2026 SynData4CV workshop; dataset on <a href="https://huggingface.co/datasets/govtech/SynthSite" target="_blank" rel="noreferrer">Hugging Face</a>; extended into the ACM Multimedia Dataset Track.
-          </p>
-          <p class="tags">Video diffusion &middot; Wan2.2-I2V-A14B &middot; Qwen2.5-VL curation &middot; LoRA &middot; 227 rare scenarios &middot; VBench &middot; open-vocabulary detection</p>
-          <figure class="system-figure figure-medium">
-            <a href="assets/cvpr2026.png" target="_blank" rel="noreferrer">
-              <img src="assets/cvpr2026_web.webp" alt="SynthSite synthetic video generation and evaluation pipeline" loading="lazy" decoding="async">
-            </a>
-            <figcaption>SynthSite generation pipeline and multi-dimensional evaluation &mdash; CVPR 2026</figcaption>
-          </figure>
+          <div class="system-media">
+            <figure class="system-figure figure-medium">
+              <a href="assets/cvpr2026.png" target="_blank" rel="noreferrer">
+                <img src="assets/cvpr2026_web.webp" alt="SynthSite synthetic video generation and evaluation pipeline" loading="lazy" decoding="async">
+              </a>
+            </figure>
+            <p class="tags">Video diffusion &middot; Wan2.2-I2V-A14B &middot; Qwen2.5-VL curation &middot; LoRA &middot; 227 rare scenarios &middot; VBench &middot; open-vocabulary detection</p>
+          </div>
+          <div class="system-copy">
+            <h3><a href="https://huggingface.co/datasets/govtech/SynthSite" target="_blank" rel="noreferrer">SynthSite</a> &mdash; Synthetic video generation &amp; benchmarking</h3>
+            <p>
+              SynthSite began as a practical deployment problem &mdash; evaluating safety site-analytics vendors with almost no footage of rare hazards &mdash; and grew into research. It is a <strong>hybrid local&ndash;cloud video generation pipeline</strong> with human curation and safety annotation, LoRA fine-tuned to synthesize rare worker-under-suspended-load scenarios, with agency domain experts reviewing the outputs. Published at the CVPR 2026 SynData4CV workshop; dataset and code on <a href="https://huggingface.co/datasets/govtech/SynthSite" target="_blank" rel="noreferrer">Hugging Face</a>; extended into the ACM Multimedia Dataset Track.
+            </p>
+          </div>
         </article>
 
         <article class="system">
-          <h3><a href="https://build.tech.gov.sg/projects/2025/DataSharingAssist" target="_blank" rel="noreferrer">DataSharingAssist</a> &rarr; Privacy Scientist</h3>
-          <p>
-            I ideated and product-led DataSharingAssist, an AI assistant for explainable data classification and data-sharing guidance &mdash; recommendations and justifications grounded in government policies through retrieval, with the full reasoning process visible to the user. It gained traction with 20+ agencies through in-person pilots with data teams and policymakers, was presented at the <a href="https://ieee-isope.org/past-events/isope-2025/program/" target="_blank" rel="noreferrer">IEEE Symposium on Privacy Expectations</a> in New York, and was selected into the government-wide <a href="https://build.tech.gov.sg/" target="_blank" rel="noreferrer">Build for Good</a> hackathon for its high impact.
-          </p>
-          <p>
-            I am now evolving it into <strong>Privacy Scientist</strong>: a multimodal, agentic system pairing document intelligence &mdash; OCR, vision, and language understanding &mdash; with orchestrated agents for policy resolution, mitigation search, evaluation, and red-teaming, optimizing the privacy&ndash;utility trade-off with human verification in the loop.
-          </p>
-          <p class="tags">Explainable classification &middot; RAG + vector DB &middot; RAG evaluation &middot; HCI-informed design &middot; multimodal document AI &middot; agentic orchestration &middot; human-in-the-loop</p>
-          <div class="figure-pair">
+          <div class="system-media">
             <figure class="system-figure">
               <a href="assets/datasharingassist.png" target="_blank" rel="noreferrer">
                 <img src="assets/datasharingassist_web.webp" alt="DataSharingAssist interface showing policy-grounded data classification with visible reasoning" loading="lazy" decoding="async">
               </a>
-              <figcaption>DataSharingAssist &mdash; policy-grounded classification with transparent reasoning</figcaption>
             </figure>
+            <p class="tags">Explainable classification &middot; RAG + vector DB &middot; RAG evaluation &middot; HCI-informed design &middot; multimodal document AI &middot; agentic orchestration &middot; human-in-the-loop</p>
+          </div>
+          <div class="system-copy">
+            <h3><a href="https://build.tech.gov.sg/projects/2025/DataSharingAssist" target="_blank" rel="noreferrer">DataSharingAssist</a></h3>
+            <p>
+              I ideated and product-led DataSharingAssist, an AI assistant for explainable data classification and data-sharing guidance &mdash; recommendations and justifications grounded in government policies through retrieval, with the full reasoning process visible to the user. It gained traction with 20+ agencies through in-person pilots with data teams and policymakers, was presented at the <a href="https://ieee-isope.org/past-events/isope-2025/program/" target="_blank" rel="noreferrer">IEEE Symposium on Privacy Expectations</a> in New York, and was selected into the government-wide <a href="https://build.tech.gov.sg/" target="_blank" rel="noreferrer">Build for Good</a> hackathon for its high impact.
+            </p>
+            <!--
+            <p>
+              I am now evolving it into <strong>Privacy Scientist</strong>: a multimodal, agentic system pairing document intelligence &mdash; OCR, vision, and language understanding &mdash; with orchestrated agents for policy resolution, mitigation search, evaluation, and red-teaming, optimizing the privacy&ndash;utility trade-off with human verification in the loop.
+            </p>
+            -->
             <!-- Temporarily hidden: Privacy Scientist architecture image.
             <figure class="system-figure">
               <a href="assets/multimodal_agentic_intelligence.png" target="_blank" rel="noreferrer">
@@ -110,16 +141,20 @@
         </article>
 
         <article class="system">
-          <h3><a href="https://mirage.gov.sg/" target="_blank" rel="noreferrer">Mirage</a> &mdash; Whole-of-Government synthetic data platform</h3>
-          <p>
-            Mirage is the government's self-service platform for mock and synthetic data generation, used in production by 30+ agency teams. I led the build-vs-buy evaluation against vendor systems, then built the generation stack in-house &mdash; PyTorch modeling across copula, VAE, GAN, and diffusion generators, adaptive model routing and cascading, automated hyperparameter optimization, and multi-dimensional privacy&ndash;utility evaluation.
-          </p>
-          <p class="tags">PyTorch &middot; VAE / GAN / diffusion &middot; model routing &amp; cascades &middot; HPO &middot; AWS</p>
-          <figure class="system-figure figure-compact">
-            <a href="assets/mirage.png" target="_blank" rel="noreferrer">
-              <img src="assets/mirage_web.webp" alt="Mirage platform landing page" loading="lazy" decoding="async">
-            </a>
-          </figure>
+          <div class="system-media">
+            <figure class="system-figure figure-compact">
+              <a href="assets/mirage.png" target="_blank" rel="noreferrer">
+                <img src="assets/mirage_web.webp" alt="Mirage platform landing page" loading="lazy" decoding="async">
+              </a>
+            </figure>
+            <p class="tags">PyTorch &middot; VAE / GAN / diffusion &middot; model routing &amp; cascades &middot; HPO &middot; AWS</p>
+          </div>
+          <div class="system-copy">
+            <h3><a href="https://mirage.gov.sg/" target="_blank" rel="noreferrer">Mirage</a> &mdash; Whole-of-Government synthetic data platform</h3>
+            <p>
+              Mirage is the government's self-service platform for mock and synthetic data generation, used in production by 30+ agency teams. I led the build-vs-buy evaluation against vendor systems, then built the generation stack in-house &mdash; PyTorch modeling across copula, VAE, GAN, and diffusion generators, adaptive model routing and cascading, automated hyperparameter optimization, and multi-dimensional privacy&ndash;utility evaluation.
+            </p>
+          </div>
         </article>
       </section>
 
@@ -146,7 +181,7 @@
       </section>
 
       <section id="research">
-        <h2>Research</h2>
+        <h2>Published Research</h2>
         <ul class="paper-list">
           <li>
             <span>2026.</span>
@@ -203,7 +238,7 @@
       </section>
 
       <section id="talks">
-        <h2>Presentations and community</h2>
+        <h2>Community</h2>
         <ul class="paper-list">
           <li>
             <span>2026.</span>
@@ -213,58 +248,57 @@
             <span>2026.</span>
             Co-lead organizer and reviewer, <a href="https://responsible-synthetic-data.github.io/" target="_blank" rel="noreferrer">AAAI Workshop on Shaping Responsible Synthetic Data in the Era of Foundation Models</a> (<a href="https://us06web.zoom.us/rec/play/fg50zEaNsR0_7W8M6YmZP9z6EENAxh19v1-RHifjPJYhbbWTuQSlBAFSbnOjuOipGny0fJY9VZB-EMmc.UTDezH-GYXC4DX0i?eagerLoadZvaPages=&amp;accessLevel=meeting&amp;canPlayFromShare=true&amp;from=share_recording_detail&amp;continueMode=true&amp;componentName=rec-play&amp;originRequestUrl=https%3A%2F%2Fus06web.zoom.us%2Frec%2Fshare%2FlqJ_JumU_0NR-3_MBtrZk7VHmYRdL4QxdepOGhu2kaEhgZqb0uQMziBJ0ivwPTn8.8GMVBjI592_ZMZAZ" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">🎥</span> recording</a>), with <a href="https://www.engineering.columbia.edu/faculty-staff/directory/rachel-cummings" target="_blank" rel="noreferrer">Rachel Cummings</a>, <a href="https://shlomi.hod.xyz/" target="_blank" rel="noreferrer">Shlomi Hod</a>, and <a href="https://www.linkedin.com/in/zilong-zhao/" target="_blank" rel="noreferrer">Zilong Zhao</a>.
           </li>
-          <li>
-            <span>Apr 2026.</span>
-            Hosted <a href="https://lorong.ai/" target="_blank" rel="noreferrer">Lorong AI</a> Paper Club: <a href="https://luma.com/z4b2koud" target="_blank" rel="noreferrer">How Multimodal Models Are Actually Built: From CLIP to Qwen2.5-VL</a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1woaNFyc_mWGukAUen_wFqowRn724Wd4Wy_gN6rRIF5o/edit?slide=id.p1#slide=id.p1" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>).
-          </li>
-          <li>
-            <span>2026.</span>
-            Hosted Lorong AI Paper Club: <a href="https://luma.com/y7825sm1" target="_blank" rel="noreferrer">How Research Agentic Systems Are Actually Built: From ReAct to the AI Scientist</a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1XT6Vi8Xk3TNwxxp4rzr6FzrOcAYTuT4qq520SPiWNPo/edit?usp=sharing" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>).
+          <li class="community-group">
+            <span>2024&ndash;2026.</span>
+            <strong><a href="https://lorong.ai/" target="_blank" rel="noreferrer">Lorong AI</a></strong> (building Singapore's AI ecosystem)
+            <ul class="community-sublist">
+              <li>Hosted Paper Club: <a href="https://luma.com/z4b2koud" target="_blank" rel="noreferrer">How Multimodal Models Are Actually Built: From CLIP to Qwen2.5-VL</a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1woaNFyc_mWGukAUen_wFqowRn724Wd4Wy_gN6rRIF5o/edit?slide=id.p1#slide=id.p1" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>).</li>
+              <li>Hosted Paper Club: <a href="https://luma.com/y7825sm1" target="_blank" rel="noreferrer">How Research Agentic Systems Are Actually Built: From ReAct to the AI Scientist</a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1XT6Vi8Xk3TNwxxp4rzr6FzrOcAYTuT4qq520SPiWNPo/edit?usp=sharing" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>).</li>
+              <li>Presented two AI Wednesdays sessions on <a class="slides-link" href="https://docs.google.com/presentation/d/1HBnbylS7w37RZjriFHOXxpV5Zj2py8Cd/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>synthetic data generation</a>.</li>
+            </ul>
           </li>
           <li>
             Reviewer, <a href="https://www.isaca.org/-/media/files/isacadp/project/isaca/resources/white-papers/exploring-practical-considerations-and-applications-for-privacy-enhancing-technologies_0524.pdf" target="_blank" rel="noreferrer">ISACA whitepaper on Privacy-Enhancing Technologies</a>.
           </li>
         </ul>
 
-        <p class="list-label">Selected presentations and workshops</p>
-        <ul class="paper-list speaking-list">
-          <li>
-            <span class="item-year">2026.</span>
-            <span class="item-detail"><a href="https://openreview.net/forum?id=dMfhFmDWsg" target="_blank" rel="noreferrer"><em>SynthSite: Privacy-Aware Synthetic Video Benchmarking for Worker-Under-Suspended-Load Detection</em></a> (<a class="poster-link" href="assets/cvpr-2026-synthsite-poster.pdf" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">🖼️</span>poster</a>), presented at the 3rd Workshop on Synthetic Data for Computer Vision (SynData4CV), CVPR 2026, Denver, USA 🇺🇸.</span>
-          </li>
-          <li>
-            <span class="item-year">2025.</span>
-            <span class="item-detail"><em>Empowering Government Agencies in Singapore for Confident Data Sharing: Design and Early Insights from an AI-powered Tool for Data Privacy and Quality Assessment</em>, <a href="https://ieee-isope.org/past-events/isope-2025/program/" target="_blank" rel="noreferrer">IEEE Symposium on Privacy Expectations (ISoPE)</a>, New York, USA 🇺🇸.</span>
-          </li>
-          <li>
-            <span class="item-year">2025.</span>
-            <span class="item-detail"><a class="video-link" href="https://youtu.be/mbdA0ObrBac?t=1366" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Enabling Better Guidance for Data Classifications through an AI-assisted Educational Tool</em></a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1ZppPz1E0i8Fbh2ROeRVgm1DRsdGmPsSe/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>), GovTech STACK Meetup.</span>
-          </li>
-          <li>
-            <span class="item-year">2024.</span>
-            <span class="item-detail"><a class="video-link" href="https://youtu.be/N_qD8HOmCHw?t=91" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Bridge the Usability Gap For Widespread Adoption Of Differential Privacy</em></a>, Sydney Privacy Workshop, University of Sydney, Sydney, Australia 🇦🇺.</span>
-          </li>
-          <li>
-            <span class="item-year">2024.</span>
-            <span class="item-detail"><a class="repo-link" href="https://github.com/dsaidgovsg/benchmarking-synthetic-data-generators" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-github"></use></svg><em>Workshop on synthetic data</em></a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1AS1eI3k7G--fZkDGCUbTx8UWxRzsRhfc/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>), GovTech STACK Developer Conference.</span>
-          </li>
-          <li>
-            <span class="item-year">2024-2025.</span>
-            <span class="item-detail">Two Lorong AI sessions on <a class="slides-link" href="https://docs.google.com/presentation/d/1HBnbylS7w37RZjriFHOXxpV5Zj2py8Cd/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span><em>synthetic data generation</em></a>.</span>
-          </li>
-          <li>
-            <span class="item-year">2023.</span>
-            <span class="item-detail"><a class="video-link" href="https://youtu.be/gTCKmPX6Nt0?t=655" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Privacy in the Public Sector: Lessons Learned and Strategies for Success</em></a>, USENIX Conference on Privacy Engineering Practice and Respect (PEPR), California, USA 🇺🇸.</span>
-          </li>
-          <li>
-            <span class="item-year">2023.</span>
-            <span class="item-detail"><a class="video-link" href="https://youtu.be/lmo3awiji0s?t=1626" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Implementing Differential Privacy</em></a>, GovTech STACK x Data Science &amp; AI Series Meetup.</span>
-          </li>
-          <li>
-            <span class="item-year">2022.</span>
-            <span class="item-detail"><a class="repo-link" href="https://github.com/dsaidgovsg/stack-2022-differential-privacy-workshop" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-github"></use></svg><em>Workshop on Differential Private Statistics Release</em></a>, <a href="https://www.developer.tech.gov.sg/communities/events/conferences/stack-2022-developer-conference/agenda/workshops.html" target="_blank" rel="noreferrer">GovTech STACK Developer Conference</a>.</span>
-          </li>
-        </ul>
+        <details class="talks-details">
+          <summary>Selected talks</summary>
+          <ul class="paper-list speaking-list">
+            <li>
+              <span class="item-year">2026.</span>
+              <span class="item-detail"><a href="https://openreview.net/forum?id=dMfhFmDWsg" target="_blank" rel="noreferrer"><em>SynthSite: Privacy-Aware Synthetic Video Benchmarking for Worker-Under-Suspended-Load Detection</em></a> (<a class="poster-link" href="assets/cvpr-2026-synthsite-poster.pdf" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">🖼️</span>poster</a>), presented at the 3rd Workshop on Synthetic Data for Computer Vision (SynData4CV), CVPR 2026, Denver, USA 🇺🇸.</span>
+            </li>
+            <li>
+              <span class="item-year">2025.</span>
+              <span class="item-detail"><em>Empowering Government Agencies in Singapore for Confident Data Sharing: Design and Early Insights from an AI-powered Tool for Data Privacy and Quality Assessment</em>, <a href="https://ieee-isope.org/past-events/isope-2025/program/" target="_blank" rel="noreferrer">IEEE Symposium on Privacy Expectations (ISoPE)</a>, New York, USA 🇺🇸.</span>
+            </li>
+            <li>
+              <span class="item-year">2025.</span>
+              <span class="item-detail"><a class="video-link" href="https://youtu.be/mbdA0ObrBac?t=1366" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Enabling Better Guidance for Data Classifications through an AI-assisted Educational Tool</em></a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1ZppPz1E0i8Fbh2ROeRVgm1DRsdGmPsSe/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>), GovTech STACK Meetup.</span>
+            </li>
+            <li>
+              <span class="item-year">2024.</span>
+              <span class="item-detail"><a class="video-link" href="https://youtu.be/N_qD8HOmCHw?t=91" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Bridge the Usability Gap For Widespread Adoption Of Differential Privacy</em></a>, Sydney Privacy Workshop, University of Sydney, Sydney, Australia 🇦🇺.</span>
+            </li>
+            <li>
+              <span class="item-year">2024.</span>
+              <span class="item-detail"><a class="repo-link" href="https://github.com/dsaidgovsg/benchmarking-synthetic-data-generators" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-github"></use></svg><em>Workshop on synthetic data</em></a> (<a class="slides-link" href="https://docs.google.com/presentation/d/1AS1eI3k7G--fZkDGCUbTx8UWxRzsRhfc/edit?usp=sharing&amp;ouid=109530204851049367310&amp;rtpof=true&amp;sd=true" target="_blank" rel="noreferrer"><span class="link-emoji" aria-hidden="true">📊</span>slides</a>), GovTech STACK Developer Conference.</span>
+            </li>
+            <li>
+              <span class="item-year">2023.</span>
+              <span class="item-detail"><a class="video-link" href="https://youtu.be/gTCKmPX6Nt0?t=655" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Privacy in the Public Sector: Lessons Learned and Strategies for Success</em></a>, USENIX Conference on Privacy Engineering Practice and Respect (PEPR), California, USA 🇺🇸.</span>
+            </li>
+            <li>
+              <span class="item-year">2023.</span>
+              <span class="item-detail"><a class="video-link" href="https://youtu.be/lmo3awiji0s?t=1626" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-youtube"></use></svg><em>Implementing Differential Privacy</em></a>, GovTech STACK x Data Science &amp; AI Series Meetup.</span>
+            </li>
+            <li>
+              <span class="item-year">2022.</span>
+              <span class="item-detail"><a class="repo-link" href="https://github.com/dsaidgovsg/stack-2022-differential-privacy-workshop" target="_blank" rel="noreferrer"><svg aria-hidden="true"><use href="#icon-github"></use></svg><em>Workshop on Differential Private Statistics Release</em></a>, <a href="https://www.developer.tech.gov.sg/communities/events/conferences/stack-2022-developer-conference/agenda/workshops.html" target="_blank" rel="noreferrer">GovTech STACK Developer Conference</a>.</span>
+            </li>
+          </ul>
+        </details>
       </section>
 
       <!-- Some writing: commented out per Anshu's request (2026-07-07); restore by removing this comment wrapper
@@ -297,15 +331,9 @@
         </p>
         <p class="list-label">Content creation</p>
         <p>
-          I have recently started creating content on AI &mdash; one piece per platform so far, a long game I am committed to. <a href="https://anshu0612.substack.com/" target="_blank" rel="noreferrer">Substack</a> is my dedicated home for long-form writing, continuing from my earlier essays on <a href="https://medium.com/@randomized0612" target="_blank" rel="noreferrer">Medium</a>.
+          I have recently started creating content on AI &mdash; a long game I am committed to across formats.
         </p>
         <div class="media-cards">
-          <div class="media-card">
-            <a href="https://anshu0612.substack.com/p/understanding-inference-economics" target="_blank" rel="noreferrer">
-              <img src="assets/substack_web.webp" alt="Cover illustration of the essay Understanding Inference Economics with DeepSeek V4" loading="lazy" decoding="async">
-            </a>
-            <span class="media-card-title"><a href="https://anshu0612.substack.com/p/understanding-inference-economics" target="_blank" rel="noreferrer">Understanding Inference Economics with DeepSeek V4</a> <span class="media-card-tag">Substack</span></span>
-          </div>
           <div class="media-card">
             <a href="https://www.youtube.com/@droolingoverai" target="_blank" rel="noreferrer">
               <img src="assets/youtube_web.webp" alt="DroolingOverAI YouTube video on why synthetic data matters" loading="lazy" decoding="async">
@@ -326,7 +354,7 @@
           I am open to <strong>Applied AI, Research Engineer, ML/AI Engineer, Data Scientist, and Forward Deployed Engineer</strong> roles &mdash; and always happy to chat about multimodal AI, generative models, and synthetic data.
         </p>
         <p>
-          You can reach me at <a class="email-link" data-user="anshu.singh173" data-domain="gmail.com" href="#" aria-label="Email Anshu">email</a>, or find me on <a href="https://www.linkedin.com/in/anshu-singh/" target="_blank" rel="noreferrer">LinkedIn</a>, <a href="https://x.com/randomized0612" target="_blank" rel="noreferrer">X</a>, <a href="https://github.com/anshu0612" target="_blank" rel="noreferrer">GitHub</a>, <a href="https://anshu0612.substack.com/" target="_blank" rel="noreferrer">Substack</a>, <a href="https://medium.com/@randomized0612" target="_blank" rel="noreferrer">Medium</a>, and <a href="https://www.youtube.com/@droolingoverai" target="_blank" rel="noreferrer">YouTube</a>.
+          You can reach me at <a class="email-link" data-user="anshu.singh173" data-domain="gmail.com" href="#" aria-label="Email Anshu">email</a>, or find me on <a href="https://www.linkedin.com/in/anshu-singh/" target="_blank" rel="noreferrer">LinkedIn</a>, <a href="https://x.com/randomized0612" target="_blank" rel="noreferrer">X</a>, <a href="https://github.com/anshu0612" target="_blank" rel="noreferrer">GitHub</a>, and <a href="https://www.youtube.com/@droolingoverai" target="_blank" rel="noreferrer">YouTube</a>.
         </p>
       </footer>
     </main>

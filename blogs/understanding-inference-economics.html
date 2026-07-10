@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Understanding Inference Economics with DeepSeek V4 | Anshu Singh</title>
+    <meta name="description" content="Why million-token intelligence is really a memory, bandwidth, and serving problem.">
+    <meta name="theme-color" content="#fbfaf6">
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script async src="https://plausible.io/js/pa--8euGaAhtFjdisI6A7eGm.js"></script>
+    <script>
+      window.plausible = window.plausible || function () {
+        (plausible.q = plausible.q || []).push(arguments);
+      };
+      plausible.init = plausible.init || function (i) {
+        plausible.o = i || {};
+      };
+      plausible.init();
+    </script>
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <main class="page blog-page">
+      <header class="masthead blog-masthead">
+        <nav class="topnav" aria-label="Primary navigation">
+          <a href="../blogs.html" aria-current="page">blogs</a>
+          <a href="../index.html#systems">selected work</a>
+          <a href="../index.html#experience">experience</a>
+          <a href="../index.html#research">published research</a>
+          <a href="../index.html#talks">community</a>
+          <a href="../index.html#learning">beyond work</a>
+          <a href="../index.html#contact">contact</a>
+        </nav>
+        <p class="blog-back"><a href="../blogs.html">&larr; all blogs</a></p>
+        <article class="blog-post-header">
+          <p class="blog-date">May 3, 2026</p>
+          <h1>Understanding Inference Economics with DeepSeek V4</h1>
+          <p class="lead blog-lead">Why million-token intelligence is really a memory, bandwidth, and serving problem.</p>
+        </article>
+      </header>
+
+      <article class="blog-post">
+<p>Intelligence is not free to use.</p>
+
+<p>A single agent run — read a codebase, call tools, inspect errors, generate patches, run tests, revise the plan — can burn through hundreds of thousands of tokens before it returns an answer. At frontier scale, that cost is becoming one of the central constraints shaping the AI industry. It shows up in <a href="https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/" target="_blank" rel="noreferrer">usage-based</a> <a href="https://www.theinformation.com/newsletters/applied-ai/microsoft-pushes-usage-based-pricing-ai-eats-cloud-margins" target="_blank" rel="noreferrer">billing</a>, <a href="https://www.theverge.com/ai-artificial-intelligence/917380/ai-monetization-anthropic-openai-token-economics-revenue" target="_blank" rel="noreferrer">rate limits, premium tiers, and restrictions on long-running agentic workflows</a> — all signs that AI products are moving from subsidized experimentation toward explicit token economics. ( “<em>You’re out of extra usage ∙ Your limit resets at 12:10 PM</em>“ — rings a bell?)</p>
+
+<p>At the infrastructure level, <a href="https://www.axios.com/2026/04/02/anthropic-usage-limits-openai" target="_blank" rel="noreferrer">compute itself is becoming a strategic bottleneck. </a>AI labs are competing not only on model quality but on access to GPUs, memory, data centers, power, and long-term capacity. In a compute-constrained world, inference efficiency stops being a back-office optimization and becomes a strategic advantage.</p>
+
+<p>This is why <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf" target="_blank" rel="noreferrer">DeepSeek V4</a> is worth studying carefully — not as a frontier-capability release (it isn't trying to top GPT-5.x or Claude Opus 4.x on raw capability  on raw capability), but as one of the clearest recent examples of an <em>efficiency-frontier</em> release. It gives us a concrete way to examine inference economics: what it <a href="https://www.youtube.com/watch?v=LF3aUIM57uw" target="_blank" rel="noreferrer">costs to generate a useful token</a>, and <a href="https://www.youtube.com/watch?v=xmkSf5IS-zw&amp;t=429s" target="_blank" rel="noreferrer">how architectural choices can reduce, shift, or expose that cost.</a></p>
+
+<h2>From inference economics to architecture and serving choices</h2>
+
+<figure><img src="../assets/blogs/inference-economics/01.jpg" alt="" loading="lazy" decoding="async">
+<figcaption>Architecture and serving choices act on the lower layer to change what users feel </figcaption>
+</figure>
+
+<p>What does a useful token actually cost? Several costs are paid at once:</p>
+
+<ul>
+<li>
+<p><strong>Compute cost</strong> — the matrix multiplications needed to run the active parts of the model</p>
+</li>
+
+<li>
+<p><strong>Memory cost</strong> — model weights and KV cache must fit somewhere</p>
+</li>
+
+<li>
+<p><strong>Memory-bandwidth cost</strong> — during decoding, the system repeatedly reads weights and KV cache</p>
+</li>
+
+<li>
+<p><strong>Communication cost</strong> — in distributed models, tokens and activations move across GPUs</p>
+</li>
+
+<li>
+<p><strong>Runtime overhead</strong> — batching, scheduling, kernels, prefix caching, and parallelism determine how efficiently expensive hardware is actually used</p>
+</li>
+</ul>
+
+<p>The outcomes users feel directly — latency, throughput, cost per token — sit on top of these deeper system drivers, along with batch size, hardware utilization, interconnect, and context length through the KV cache.</p>
+
+<p>DeepSeek V4 is interesting because many of its design choices map directly onto this cost structure. The architecture is not only trying to improve capability; it is trying to make long-context inference <em>practical to serve</em>.</p>
+
+<p>The paper introduces two main variants: DeepSeek V4-Pro, with 1.6T total parameters and 49B activated per token, and DeepSeek V4-Flash, with 284B total parameters and 13B activated. Both support a one-million-token context window. Set against V3, the trajectory is clear:</p>
+
+<figure><img src="../assets/blogs/inference-economics/02.jpg" alt="" loading="lazy" decoding="async"></figure>
+
+<p>Total parameters shape how much capacity must be stored. Activated parameters shape how much compute each token actually pays for. V4-Pro is roughly 3% active — meaning a token only ever pays for a small slice of a very large model. And a one-million-token context window means KV cache, memory bandwidth, and long-context serving efficiency become central to whether the model is usable in production.</p>
+
+<aside class="blog-callout">
+<p>The full V4 paper covers more than this — training stability, residual layer redesign, optimizers, training infrastructure, pretraining, post-training, evaluation. Those pieces matter, especially for model quality and training stability. But this article focuses on a narrower question:</p>
+
+<p><strong>How do DeepSeek V4’s attention, Mixture-of-Experts (MoE), and serving choices change the economics of generating useful tokens?</strong></p>
+</aside>
+
+<figure><img src="../assets/blogs/inference-economics/03.jpg" alt="" loading="lazy" decoding="async">
+<figcaption>Among the many drivers of inference cost, two architectural centres absorb most of V4’s design effort: attention and the feed-forward network, with the serving stack making the savings practical.</figcaption>
+</figure>
+
+<h2>Attention: reducing the cost of long memory</h2>
+
+<p>For long-context models, attention is one of the first places where inference becomes expensive.</p>
+
+<p>During inference, the model stores key/value activations from previous tokens in the KV cache, and each new token uses this cache to attend to historical context. For short prompts, this is manageable. But when context grows to hundreds of thousands — or a million — tokens, the model has much more history to store, read, and search through. Two related costs grow together: more attention work, and more KV-cache memory and bandwidth pressure.</p>
+
+<p>This is where memory time starts to matter. The model is not only doing computation; it is repeatedly moving data — especially KV-cache data — during generation.</p>
+
+<p>DeepSeek V4 addresses this with a hybrid attention design built around two top-level  mechanisms: <strong>Compressed Sparse Attention (CSA)</strong> and <strong>Heavily Compressed Attention (HCA)</strong> (you may also see CSA’s sparse-selection step referred to as DeepSeek Sparse Attention, or DSA. In V4, DSA is the per-query top-k selection over compressed KV entries inside CSA). They reduce the cost of long-context memory in different ways.</p>
+
+<p>CSA compresses the long past into fewer KV entries, then has each query attend only to a selected top-k of those entries rather than all of them. The selection is done by a separate lightweight scoring module — the <strong>Lightning Indexer</strong> — which assigns relevance scores to compressed entries. Because the indexer is much cheaper than full attention, the selection step itself doesn’t undo the savings. The model ends up with fewer KV entries to store and read, and avoids spending attention over large parts of history that are irrelevant to the current token.</p>
+
+<p>HCA pushes compression further. Instead of sparse retrieval over moderately compressed entries, HCA performs <em>dense</em> attention over a much shorter, heavily compressed representation of the past. The result is a compact global view of the context — lower resolution, but cheap to attend over.</p>
+
+<figure><img src="../assets/blogs/inference-economics/04.jpg" alt="" loading="lazy" decoding="async">
+<figcaption>DeepSeek V4 uses a hybrid attention stack where CSA and HCA are interleaved across layers.</figcaption>
+</figure>
+
+<p>The economic effect is smaller effective KV memory, less attention over irrelevant history, and lower memory-bandwidth pressure during decoding — adding up to materially cheaper long-context inference.</p>
+
+<p>There is one important caveat: this architectural saving creates serving complexity. CSA and HCA produce compressed KV states with different shapes, compression ratios, and update rules, which means the runtime needs a more careful KV-cache layout for the theoretical savings to become real. We’ll come back to this in the serving section.</p>
+
+<h2>Mixture-of-Experts (MoE): paying for active intelligence, not total size</h2>
+
+<p>In a standard transformer, every token passes through the same dense feed-forward network (FFN). As the model grows, every token pays for more matrix multiplication. Capacity and per-token compute are tightly coupled.</p>
+
+<p>MoE breaks that coupling. Instead of one dense FFN, the FFN is split into many smaller expert networks, and a router decides which experts each token should use. This creates a crucial distinction:</p>
+
+<ul>
+<li>
+<p><strong>Total parameters</strong> describe everything the model stores — full capacity and memory footprint</p>
+</li>
+
+<li>
+<p><strong>Active parameters</strong> describe the subset used for one token — the compute that token actually pays for</p>
+</li>
+</ul>
+
+<p>This is why MoE matters for inference economics: it lets the model scale stored capacity without forcing every token to pay for the full model.</p>
+
+<figure><img src="../assets/blogs/inference-economics/05.jpg" alt="" loading="lazy" decoding="async">
+<figcaption>DeepSeek V4 uses sparse MoE routing — each token follows a shared path plus a small subset of routed experts, rather than paying for the full expert pool. The numbers shown illustrate V4-Pro; V4-Flash follows the same design pattern at a smaller scale.</figcaption>
+</figure>
+
+<p>DeepSeek V4 leans into sparse activation hard. V4-Pro has 1.6T total parameters but only 49B activated per token — about 3.1% of the total parameter pool on a per-token forward path. In V4-Pro, each MoE layer has one shared expert and 384 routed experts, with only 6 routed experts activated per token. V4-Flash uses the same shared-plus-routed MoE pattern at smaller scale: 284B total parameters, 13B activated per token, and 1 shared expert plus 256 routed experts per MoE layer, again with 6 routed experts activated per token. The shared expert gives every token a common processing path; the routed experts provide specialized capacity.</p>
+
+<p>The intuition is clean: a large expert pool means more stored capacity, and few active experts per token means lower compute per token.</p>
+
+<p>But MoE is not free efficiency.</p>
+
+<p>The full expert pool still has to be stored somewhere. The router has to decide which experts each token should use. Expert usage has to be balanced so that some experts don’t become overloaded while others sit idle. And when experts are distributed across GPUs, tokens have to be dispatched to the devices that hold their selected experts, which creates communication overhead. In expert-parallel serving, tokens may need to move across GPUs in an all-to-all pattern, and if that communication is slow, it can eat directly into the compute savings from sparse activation.</p>
+
+<p>So the MoE tradeoff is: less active compute, but more pressure on storage, routing, balancing, and interconnect. DeepSeek V4’s MoE design addresses this with load-balancing mechanisms and fine-grained expert-parallel kernels that overlap communication with computation.</p>
+
+<h2>Where architecture meets serving</h2>
+
+<p>Architecture alone does not guarantee cheaper inference. The savings only matter if the serving system can realize them on actual hardware. This is where KV-cache layout, memory bandwidth, precision, prefix caching, kernels, parallelism, and interconnect enter the story.</p>
+
+<h3>KV cache is no longer simple memory blocks</h3>
+
+<figure><img src="../assets/blogs/inference-economics/06.jpg" alt="" loading="lazy" decoding="async">
+<figcaption>DeepSeek V4's hybrid attention splits the KV cache into multiple state types instead of one homogeneous layout. SWA stores recent-token KV for the sliding-window fallback inside hybrid attention; tail states are KV held uncompressed until the next compression boundary.</figcaption>
+</figure>
+
+<p>In a standard transformer, the KV cache is relatively uniform — each layer stores key/value states for previous tokens in a regular structure that runtimes like vLLM can manage with PagedAttention.</p>
+
+<p>DeepSeek V4’s hybrid attention complicates this. CSA and HCA produce different kinds of states: compressed long-range KV entries, recent raw states, sparse-retrieval indexer states, and uncompressed tail tokens waiting to be compressed. These states have different shapes, compression ratios, and update rules, so V4 needs a heterogeneous KV-cache layout rather than a one-size-fits-all cache. The compressed cache holds long-range CSA/HCA memory; a separate state cache holds recent raw tokens and not-yet-compressed tail states.</p>
+
+<p>This matters because reducing KV cache is not enough. The runtime also has to retrieve the right kind of memory efficiently during decoding — and bandwidth, not capacity, is often the binding constraint. A model fitting in GPU memory means it can run; it doesn’t mean it can run fast. During decoding, the model repeatedly reads weights, KV cache, expert weights, routing metadata, and attention states. If too much data has to move from memory to compute units, the system becomes memory-bandwidth-bound: the GPU has FLOPs to spare and spends its time waiting for data.</p>
+
+<h3>Precision reduces bytes moved</h3>
+
+<p>DeepSeek V4 uses <strong>mixed</strong> low-precision formats — FP4 and FP8 — as part of the serving story. Lower precision reduces both memory footprint and memory-bandwidth pressure, which is especially important for MoE models, where expert weights make up a large share of total parameters. FP4 and FP8 are not just storage tricks; they reduce the number of bytes that have to be stored and moved during inference.</p>
+
+<p>The caveat: low precision only helps if the model maintains quality and the hardware and kernels can execute those formats efficiently.</p>
+
+<h3>Prefix caching avoids repeated prefill</h3>
+
+<figure><img src="../assets/blogs/inference-economics/07.jpg" alt="" loading="lazy" decoding="async">
+<figcaption>Prefix caching avoids recomputing a long shared prefix: reusable KV/state entries are loaded, so prefill focuses mostly on the new suffix before normal token-by-token decoding begins.</figcaption>
+</figure>
+
+<p>Long-context serving has two phases. <strong>Prefill</strong> processes the input prompt and creates KV cache. <strong>Decode</strong> generates output tokens one by one. Prefill can be expensive when the prompt is long — but many real workloads reuse the same prefix: the same system prompt, tool schema, repository context, policy document, instruction block, or few-shot examples.</p>
+
+<p>If the system can reuse previously computed KV states for that shared prefix, it avoids recomputing the same long prompt over and over. This is especially useful for agentic and enterprise workloads. A coding agent may repeatedly work with the same repository context. A policy assistant may repeatedly use the same long document. A research assistant may repeatedly use the same paper or transcript.</p>
+
+<p>A clean way to state the serving intuition: <em>batching amortizes weight reads; prefix caching amortizes repeated prompt processing.</em></p>
+
+<p>But prefix caching is not free either. Loading cached KV states can add I/O latency, especially if they’re stored outside GPU memory. It only helps when the saved prefill computation is larger than the cost of retrieving the cached state.</p>
+
+<h3>Kernels and parallelism make the savings practical</h3>
+
+<p>Finally, the runtime needs efficient kernels and parallelism strategies. If CSA and HCA reduce theoretical attention cost, the kernels have to implement compressed and sparse attention efficiently. If MoE reduces active compute, the system still has to route tokens across experts efficiently. If FP4 reduces bandwidth pressure, the hardware and kernels have to actually support useful low-precision execution.</p>
+
+<p>DeepSeek V4’s architecture reduces the <em>theoretical</em> cost of inference; the serving stack is what turns those reductions into real latency, throughput, and cost.</p>
+
+<h2>Why this matters</h2>
+
+<p>DeepSeek V4 is interesting not simply because it supports a one-million-token context window. The deeper lesson is that long-context intelligence has to be made economically usable.</p>
+
+<p>A model that can technically accept a million tokens isn’t enough. It also has to process that context with reasonable latency, memory cost, bandwidth pressure, and serving cost. That’s where V4 becomes interesting — it attacks the cost of long-context inference from multiple directions at once.</p>
+
+<p>This matters even more in the age of agents — where a single task isn’t one call, it’s dozens, each adding tokens, history, and cost. Which is where inference economics and test-time scaling meet. Test-time scaling is about spending more inference-time compute to get better answers — more reasoning steps, more samples, more verification, more tool use, more agent loops. Inference economics is about the cost of doing all of that.</p>
+
+<p>For builders, researchers, and technical leads, the takeaway is straightforward: don’t evaluate models only by benchmark scores. Look at the cost structure behind the capability. The next time a frontier model lands, ask:</p>
+
+<ul>
+<li>
+<p>What’s the active parameter count, not just the total?</p>
+</li>
+
+<li>
+<p>What’s the KV cache footprint per token at the advertised context length?</p>
+</li>
+
+<li>
+<p>What’s the memory bandwidth requirement during decode?</p>
+</li>
+
+<li>
+<p>What kind of interconnect does the recommended serving setup assume?</p>
+</li>
+
+<li>
+<p>Does the architecture require special serving infrastructure for the savings to be real?</p>
+</li>
+</ul>
+
+<p>As models become more agentic, the cost of using intelligence repeatedly may matter as much as the intelligence itself. The models that win will be the ones that are cheap to serve, not just smart on benchmarks.</p>
+
+      </article>
+    </main>
+  </body>
+</html>
