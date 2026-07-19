@@ -418,12 +418,30 @@ figcaption {
   border-color: var(--blue);
 }
 
+.home-blog-placeholder {
+  display: grid;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  place-items: center;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  background: #f4f3ef;
+  color: var(--soft-ink);
+  font-size: 0.82rem;
+}
+
 .home-blog-card h3 {
   margin-bottom: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 1.02rem;
   font-weight: 700;
   line-height: 1.45;
+}
+
+.home-blog-card-placeholder p {
+  margin: 5px 0 0;
+  color: var(--soft-ink);
+  font-size: 0.82rem;
 }
 
 .blog-more {

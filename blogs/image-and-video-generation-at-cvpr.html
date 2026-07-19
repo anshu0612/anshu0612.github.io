@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Image and Video Generation at CVPR 2026 (in-person) | Anshu Singh</title>
+    <meta name="description" content="Advancing generation around representation, structured control, temporal state, 3D geometry, physical validity, computational cost, and evaluation.">
+    <meta name="theme-color" content="#fbfaf6">
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script async src="https://plausible.io/js/pa--8euGaAhtFjdisI6A7eGm.js"></script>
+    <script>
+      window.plausible = window.plausible || function () {
+        (plausible.q = plausible.q || []).push(arguments);
+      };
+      plausible.init = plausible.init || function (i) {
+        plausible.o = i || {};
+      };
+      plausible.init();
+    </script>
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <main class="page blog-page">
+      <header class="masthead blog-masthead">
+        <nav class="topnav" aria-label="Primary navigation">
+          <a href="../blogs.html" aria-current="page">blogs</a>
+          <a href="../index.html#systems">selected work</a>
+          <a href="../index.html#experience">experience</a>
+          <a href="../index.html#research">research outputs</a>
+          <a href="../index.html#talks">community</a>
+          <a href="../index.html#learning">beyond work</a>
+          <a href="../index.html#contact">contact</a>
+        </nav>
+        <p class="blog-back"><a href="../blogs.html">&larr; all blogs</a></p>
+        <article class="blog-post-header">
+          <p class="blog-date">July 18, 2026</p>
+          <h1>Image and Video Generation at CVPR 2026 (in-person)</h1>
+          <p class="lead blog-lead">Advancing generation around representation, structured control, temporal state, 3D geometry, physical validity, computational cost, and evaluation.</p>
+        </article>
+      </header>
+
+      <article class="blog-post">
+<figure><img src="../assets/blogs/cvpr-2026/01.png" alt="Illustration for Image and Video Generation at CVPR 2026" loading="lazy" decoding="async"></figure>
+
+<p>For years, visual fidelity was the dominant yardstick for image and video generation. At CVPR 2026, much of the more interesting work seemed to begin after that threshold.</p>
+
+<p>A generator has to produce the specific composition requested, preserve the relevant objects and relationships as the scene or camera changes, expose more precise controls than a text prompt can provide, and operate within a compute budget that makes the system practical. It also needs an evaluation process capable of distinguishing a correct output from one that merely looks plausible.</p>
+
+<p>I came to these questions through a specific problem. In our <strong><a href="https://openreview.net/forum?id=dMfhFmDWsg" target="_blank" rel="noreferrer">SynthSite</a></strong> work, presented at the SynData4CV workshop, we generate synthetic videos of a construction hazard involving a worker under a suspended load. Real examples are rare, dangerous to stage, and difficult to share. But a photorealistic video is still useless if the worker–load geometry is wrong, the load follows an implausible path, or the hazard appears for only one accidental frame.</p>
+
+<p><em>Looks right</em> and <em>is right</em> are different standards. The space between them is where I found much of the most consequential generation research at CVPR 2026.</p>
+
+<p>The papers below are illustrative rather than exhaustive (Refer here for the fuller list:  <a href="https://paperswithcode.co/conferences/cvpr-2026/image-generation" target="_blank" rel="noreferrer">image generation</a> and <a href="https://paperswithcode.co/conferences/cvpr-2026/video-generation" target="_blank" rel="noreferrer">video generation</a>). I have organised them around seven shifts: representation, control, temporal and spatial consistency, physical validity, compute, system design, and evaluation.</p>
+
+<h2>1. From latent space to pixel space</h2>
+
+<p>Most modern image generators operate in a compressed latent space. An autoencoder first converts the image into a smaller representation, the generative model works in that space, and a decoder reconstructs the final pixels.</p>
+
+<p>This makes training and inference more manageable, but the compression is lossy. It also divides representation learning and generation into components that are often trained separately.</p>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Yu_PixelDiT_Pixel_Diffusion_Transformers_for_Image_Generation_CVPR_2026_paper.html" target="_blank" rel="noreferrer">PixelDiT</a></strong> removes the pretrained autoencoder and learns the diffusion process directly in pixel space. It divides the work between a patch-level transformer for broader semantic structure and a pixel-level transformer for local texture.</p>
+
+<figure><img src="../assets/blogs/cvpr-2026/02.png" alt="" loading="lazy" decoding="async"></figure>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Ma_DeCo_Frequency-Decoupled_Pixel_Diffusion_for_End-to-End_Image_Generation_CVPR_2026_paper.html" target="_blank" rel="noreferrer">DeCo</a> </strong>approaches pixel-space generation by separating frequency components: its diffusion transformer specialises in low-frequency semantic structure, while a lightweight pixel decoder generates high-frequency details conditioned on the transformer’s semantic guidance (lower frequencies broadly carry composition, shape, and large spatial structures; higher frequencies carry edges, textures, and fine details. Generation tends to establish the former earlier in denoising and refine the latter later).</p>
+
+<figure><img src="../assets/blogs/cvpr-2026/03.png" alt="" loading="lazy" decoding="async"></figure>
+
+<p>The same coarse-to-fine spectral evolution later provides a useful signal for accelerating diffusion inference through caching.</p>
+
+<h2>2. From compositional correctness to temporal control</h2>
+
+<p>A model may render several people with high visual quality while duplicating the same face, merging two identities, or generating the wrong number of individuals. <strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Borse_Resolving_the_Identity_Crisis_in_Text-to-Image_Generation_CVPR_2026_paper.html" target="_blank" rel="noreferrer">DisCo</a></strong> addresses these failures through reinforcement learning. Its reward separately considers identity diversity within an image, repeated identities across generated samples, person counts, prompt alignment, and visual quality.</p>
+
+<figure><img src="../assets/blogs/cvpr-2026/04.png" alt="" loading="lazy" decoding="async"></figure>
+
+<p>DisCo also illustrates why reinforcement learning is better understood as a method than as a separate generation problem. The underlying problem is compositional correctness; reward optimisation provides one way to target it. The familiar caveat remains: the generator improves only on the properties its reward can measure.</p>
+
+<p>Adding time makes compositional control substantially harder.</p>
+
+<p>A video generator must preserve identity, geometry, motion, occlusion, lighting, camera behaviour, and event order across frames. A single frame can look realistic while contradicting what appeared a second earlier.</p>
+
+<p>Text is a convenient control interface, but it is a poor specification of an object trajectory, an event’s timing, or a camera path. <strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Wang_BulletTime_Decoupled_Control_of_Time_and_Camera_Pose_for_Video_CVPR_2026_paper.html" target="_blank" rel="noreferrer">BulletTime</a></strong> makes this limitation explicit by separating the progression of world time from camera pose. The viewpoint can move while the scene slows or remains fixed, instead of treating scene dynamics and camera motion as one entangled process.</p>
+
+<p>This is part of a broader shift in visual generation: moving difficult requirements out of a single text embedding and into more explicit conditions—layouts, trajectories, poses, camera paths, reference identities, scene graphs, or intermediate programs.</p>
+
+<p>In image generation, the structured constraint may be an object count, layout, identity, or attribute binding. In video, the same constraint must remain valid through motion, occlusion, and viewpoint changes.</p>
+
+<p>The number of specialised control methods cuts both ways. It shows genuine progress, but it also shows that general control remains unresolved. One system handles camera motion, another identity, another object trajectories, and another temporally consistent editing. A general-purpose generator still struggles to satisfy all of them at once.</p>
+
+<h2>3. From flat frames to 3D and 4D scene representations</h2>
+
+<p>The volume of 3D and 4D work at CVPR—and its presence among the conference awards—made this feel closely connected to the generation story rather than like a separate research thread.</p>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Chen_SAM_3D_3Dfy_Anything_in_Images_CVPR_2026_paper.html" target="_blank" rel="noreferrer">SAM 3D</a> </strong>reconstructs object geometry, texture, pose, and spatial layout from a single natural image. Unlike reconstruction from clean, isolated objects, it must infer structure through clutter, occlusion, and incomplete evidence. Its contribution also exposes the 3D data problem: the training pipeline combines synthetic pretraining, human- and model-assisted annotation, and alignment to real-world imagery.</p>
+
+<figure><img src="../assets/blogs/cvpr-2026/05.png" alt="" loading="lazy" decoding="async"></figure>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Xiang_Native_and_Compact_Structured_Latents_for_3D_Generation_CVPR_2026_paper.html" target="_blank" rel="noreferrer">Native and Compact Structured Latents for 3D Generation</a></strong> studies how a generative model should represent complete 3D assets. Its O-Voxel format stores an object’s shape, surface structure, appearance, and material properties using a sparse 3D grid. A compression model then converts this detailed representation into smaller latents that a flow-matching model can efficiently learn to generate. </p>
+
+<figure><img src="../assets/blogs/cvpr-2026/06.png" alt="" loading="lazy" decoding="async"></figure>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Zhang_Efficiently_Reconstructing_Dynamic_Scenes_One_D4RT_at_a_Time_CVPR_2026_paper.html" target="_blank" rel="noreferrer">D4RT</a></strong> adds time to this spatial commitment. It reconstructs a changing 3D scene from video. It estimates how far scene points are from the camera, tracks the same points across frames, and separates object motion from camera motion. Instead of reconstructing and storing every 3D point for every frame, the model can answer targeted questions about where a selected point is in 3D at a particular time.</p>
+
+<figure><img src="../assets/blogs/cvpr-2026/07.png" alt="" loading="lazy" decoding="async"></figure>
+
+<p>A conventional video generator may produce plausible frames without maintaining any such explicit, queryable geometry. A 4D representation makes a stronger commitment: objects, cameras, motion, and spatial relationships must agree across viewpoint and time.</p>
+
+<p>These distinctions are easy to blur.</p>
+
+<p>Reconstructing an object from an image is different from generating a new 3D asset. Reconstructing an observed dynamic scene is different from generating an action-conditioned environment. Producing consistent novel views is also different from maintaining a state that responds predictably to intervention.</p>
+
+<p>For the same reason, a photorealistic video generator is not automatically a world model. A stronger world model would need to retain state, condition meaningfully on actions, and produce consequences that remain consistent when those actions change. Plausible rollout alone does not clear that bar.</p>
+
+<h2>4. Perceptual realism is not physical consistency</h2>
+
+<p>An object may retain its geometry and identity while accelerating implausibly, passing through another object, changing apparent mass, or violating continuity. Better visual quality and stronger multi-view consistency do not automatically provide a reliable model of physical dynamics.</p>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Shen_PHANTOM_Physics-Infused_Video_Generation_via_Joint_Modeling_of_Visual_and_CVPR_2026_paper.html" target="_blank" rel="noreferrer">PHANTOM</a></strong> treats this as a separate generation problem. It jointly predicts future visual content and a latent representation of physical dynamics, incorporating information about physical state into generation.</p>
+
+<figure><img src="../assets/blogs/cvpr-2026/08.png" alt="" loading="lazy" decoding="async"></figure>
+
+<p>I would still resist calling this general physical understanding. Better performance on physics-aware benchmarks shows closer adherence to the types of dynamics those benchmarks represent. It does not establish that the model has learned a broadly transferable causal account of the physical world.</p>
+
+<p>The more defensible conclusion is that generation research has begun to separate three properties that are often conflated: <em>perceptual realism, spatial and temporal consistency, and physical validity.</em></p>
+
+<p>That distinction matters for robotics, simulation, and synthetic data. A physically implausible clip may remain acceptable as stylised media, but it can be misleading when used to train or evaluate a system expected to operate in the real world.</p>
+
+<h2>5. Compute is a first-class design variable</h2>
+
+<p>As models move toward higher resolutions, longer videos, native 3D assets, and iterative generation pipelines, compute becomes part of the modelling decision.</p>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Kodaira_StreamDiT_Real-Time_Streaming_Text-to-Video_Generation_CVPR_2026_paper.html" target="_blank" rel="noreferrer">StreamDiT</a></strong> is designed to generate video continuously rather than producing one fixed short clip. It keeps only a moving window of recent frames in memory, uses local attention to reduce computation, and distils a slower video model into a faster one. The authors report generating 512p video at 16 frames per second on a single GPU.</p>
+
+<p>That is operationally significant, although streaming should not be confused with long-term coherence. A model can continue emitting frames while identities drift, geometry changes, or the scene gradually resets.</p>
+
+<p>At inference time, two other papers move in opposite directions.</p>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Chung_SeaCache_Spectral-Evolution-Aware_Cache_for_Accelerating_Diffusion_Models_CVPR_2026_paper.html" target="_blank" rel="noreferrer">SeaCache</a></strong> spends less. It accelerates diffusion by reusing intermediate outputs across denoising steps. The difficult part is deciding when reuse is safe.</p>
+
+<p>SeaCache argues that raw feature differences are a poor signal because they mix meaningful content changes with residual noise. Its training-free cache schedule instead compares spectrally aligned representations, taking into account the coarse-to-fine progression in which lower-frequency structure emerges earlier and higher-frequency detail continues changing later.</p>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Long_VISTA_A_Test-Time_Self-Improving_Video_Generation_Agent_CVPR_2026_paper.html" target="_blank" rel="noreferrer">VISTA</a></strong> spends more. It converts a request into a temporal plan, generates multiple candidates, compares them, obtains specialised visual, audio, and contextual critiques, rewrites the prompt, and generates again. The underlying video generator is not retrained; the gain comes from search, evaluation, and iteration around it.</p>
+
+<p>VISTA is test-time scaling, not an efficiency method. Generating and evaluating several candidate videos may be reasonable for an offline synthetic-data pipeline or an expensive creative workflow. It is harder to justify for every interactive request.</p>
+
+<p>Taken together, these papers suggest a more useful framing than simply making inference faster. A practical system should reuse computation when its internal state is changing slowly, process history without repeatedly paying for the full sequence, and spend additional computation when control or verification makes the cost worthwhile. Deciding when to save compute and when to spend it is itself becoming part of the design.</p>
+
+<h2>6. The generator is one component of a larger system</h2>
+
+<p>A growing share of capability now comes from the components arranged around the generator.</p>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Bai_Scaling_Instruction-Based_Video_Editing_with_a_High-Quality_Synthetic_Dataset_CVPR_2026_paper.html" target="_blank" rel="noreferrer">Ditto</a></strong> is a clean example. Instruction-based video editing needs paired examples containing a source video, an editing instruction, and the correctly edited result. Large, high-quality datasets of this form are scarce.</p>
+
+<figure><img src="../assets/blogs/cvpr-2026/09.png" alt="" loading="lazy" decoding="async"></figure>
+
+<p>Ditto constructs them through a pipeline that combines an image editor, an in-context video generator, a distilled model, a temporal enhancer, an instruction-generating agent, and output filtering. The authors report investing more than 12,000 GPU-days to create Ditto-1M, a dataset containing one million video-editing examples.</p>
+
+<p>The synthetic dataset is produced through coordinated instruction generation, visual editing, temporal synthesis, enhancement, filtering, and quality control.</p>
+
+<p>This is increasingly what a generative system looks like in practice: planners, structured controls, simulators, reward models, critics, curation stages, and evaluators surrounding a base model.</p>
+
+<p>Some of these systems are described as agentic. That is a reasonable description of the engineering, but it should not imply that the generator itself has independently acquired planning or reasoning. Often, the capability lies in the orchestration.</p>
+
+<h2>7. Generation quality is task-dependent—and the evaluator is part of the system</h2>
+
+<p>A generated sample can look convincing and still contribute little to the downstream task. Backgrounds, poses, contextual correlations, distributional coverage, class separability, and difficult edge cases can matter as much as the appearance of the main object. </p>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Yang_Beyond_Objects_Contextual_Synthetic_Data_Generation_for_Fine-Grained_Classification_CVPR_2026_paper.html" target="_blank" rel="noreferrer">Beyond Objects: Contextual Synthetic Data Generation for Fine-Grained Classification</a></strong> makes the image-side case through fine-grained classification. Adapting a text-to-image model to a small set of real examples can improve domain relevance but also cause overfitting and reduce diversity. The method explicitly models class-independent contextual attributes, including pose and background, and varies them during generation. </p>
+
+<p>Faithfully reproducing the target object is not enough. The synthetic dataset must also vary the factors that determine what the downstream model learns and whether it generalises.</p>
+
+<figure><img src="../assets/blogs/cvpr-2026/10.png" alt="" loading="lazy" decoding="async"></figure>
+
+<p>Video adds temporal and relational requirements. For 3D and 4D data, the definition expands again—to geometry, topology, materials, multi-view consistency, editability, temporal correspondence, and whether the environment supports the intended interactions.</p>
+
+<p>Defining quality is only half the problem. The other half is whether the evaluator can measure it.</p>
+
+<p><strong><a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Matsuda_SLVMEval_Synthetic_Meta_Evaluation_Benchmark_for_Text-to-Long_Video_Generation_CVPR_2026_paper.pdf" target="_blank" rel="noreferrer">SLVMEval</a></strong> tests automated long-video evaluators rather than the generators themselves. It constructs high- and low-quality pairs through controlled degradations and asks evaluation systems to rank them.</p>
+
+<figure><img src="../assets/blogs/cvpr-2026/11.png" alt="" loading="lazy" decoding="async"></figure>
+
+<p>Human evaluators identified the better video with 84.7% to 96.8% accuracy. Automated systems fell below human performance on nine of the ten evaluated aspects, with performance often declining as video duration increased.</p>
+
+<p>A weak evaluator does not merely produce an inaccurate number. It influences which samples enter the training set, which candidate the system retains, and which behaviours the generator learns to optimise.</p>
+
+<p>Generation and evaluation are now tightly coupled. As outputs become more complex, the number of ways they can fail expands. At the same time, improving the generator increasingly depends on evaluators whose own reliability remains uncertain.</p>
+
+<h2>From research advances to usable systems</h2>
+
+<p>The exhibition floor made the systems perspective concrete. The stack surrounding visual generation now spans data construction, simulation, distributed training, model optimisation, serving, evaluation, safety, and monitoring.</p>
+
+<p>A useful system must generate the requested composition, preserve relevant state across viewpoints and time, expose meaningful controls, remain within a workable compute budget, and provide evidence that the result is valid for its intended use.</p>
+
+<p>For synthetic data, the standard is especially demanding. The question is not simply whether a rare scenario can be rendered. It is whether that scenario can be generated with sufficient control and diversity, verified at the level the task requires, and shown to improve—or expose meaningful failures in—the downstream system.</p>
+      </article>
+    </main>
+  </body>
+</html>
