@@ -584,7 +584,8 @@ figcaption {
   font-size: 1.55rem;
 }
 
-.blog-post h3 {
+.blog-post h3,
+.blog-post h4 {
   margin: 32px 0 12px;
   color: #30372f;
   font-size: 1.15rem;

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>What I Learned Building an AI That Knows When Not to Decide | Anshu Singh</title>
+    <meta name="description" content="Eight lessons from leading the end-to-end development of an AI assistant for high-stakes data classification.">
+    <meta name="theme-color" content="#fbfaf6">
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script async src="https://plausible.io/js/pa--8euGaAhtFjdisI6A7eGm.js"></script>
+    <script>
+      window.plausible = window.plausible || function () {
+        (plausible.q = plausible.q || []).push(arguments);
+      };
+      plausible.init = plausible.init || function (i) {
+        plausible.o = i || {};
+      };
+      plausible.init();
+    </script>
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <main class="page blog-page">
+      <header class="masthead blog-masthead">
+        <nav class="topnav" aria-label="Primary navigation">
+          <a href="../blogs.html" aria-current="page">blogs</a>
+          <a href="../index.html#systems">selected work</a>
+          <a href="../index.html#experience">experience</a>
+          <a href="../index.html#research">research outputs</a>
+          <a href="../index.html#talks">community</a>
+          <a href="../index.html#learning">beyond work</a>
+          <a href="../index.html#contact">contact</a>
+        </nav>
+        <p class="blog-back"><a href="../blogs.html">&larr; all blogs</a></p>
+        <article class="blog-post-header">
+          <p class="blog-date">July 19, 2026</p>
+          <h1>What I Learned Building an AI That Knows When Not to Decide</h1>
+          <p class="lead blog-lead">Eight lessons from leading the end-to-end development of an AI assistant for high-stakes data classification.</p>
+        </article>
+      </header>
+
+      <article class="blog-post">
+<figure><img src="../assets/blogs/ai-knows-when-not-to-decide/01.png" alt="Illustration for What I Learned Building an AI That Knows When Not to Decide" loading="lazy" decoding="async">
+<figcaption>A policy-grounded AI assistant that combines data signals, retrieved policies, and context engineering to support—not replace—human classification decisions.</figcaption>
+</figure>
+
+<p>Data classification shapes almost every data-sharing decision, in both the private and public sectors. It sounds simple: inspect the data and assign a label. In practice, the right classification depends on the data, the policies governing it, and context that often exists only with its owner. It is a judgement problem, not a lookup.</p>
+
+<p>I led a four-person team that took a data-classification assistant from problem discovery and user research through product design, engineering, secure deployment, and evaluation. The system helped public officers (government employees) understand the sensitivity of a dataset, the potential harm of disclosure, and the safeguards that should apply before it was shared.</p>
+
+<p>The cost of a wrong call runs both ways. <em>Over-classification</em> delays legitimate work behind unnecessary controls and privacy measures. <em>Under-classification</em> can expose information that harms or re-identifies people. </p>
+
+<p>The goal was therefore not to automate the decision. It was to bring data signals, policy requirements, and operational context into one evidence-backed recommendation that an officer could inspect and challenge.</p>
+
+<p>The prototype was selected in the <strong>top 10% of more than <a href="https://build.tech.gov.sg/" target="_blank" rel="noreferrer">120 submissions to an internal incubator</a></strong>, drew interest from users across more than 20 public agencies, and progressed to a pilot. Its design and early evaluation findings were later <a href="https://www.linkedin.com/posts/anshu-singh_at-the-ieee-symposium-on-privacy-expectations-ugcPost-7383290289861488640-6nF9/?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAABTIzY0BYgRJh6z1A20ZRx5aiI7Ga1TGk-k" target="_blank" rel="noreferrer">presented at an international privacy symposium</a> and <a href="https://www.linkedin.com/posts/anshu-singh_stackcommunity-govtech-ai-ugcPost-7401849121558704128-oy10/?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAABTIzY0BYgRJh6z1A20ZRx5aiI7Ga1TGk-k" target="_blank" rel="noreferrer">a public data engineering meetup</a>, where they were well received by security leaders from major technology companies and Singapore's public and private sectors.</p>
+
+<p>This article distils eight lessons from building it.</p>
+
+<blockquote><p><strong>In high-stakes applications, the most useful AI systems may not make decisions for people. They improve how people reason about those decisions.</strong></p></blockquote>
+
+<h2>1. <strong>Use LLMs to support classification judgment, not serve as the authority</strong>
+</h2>
+
+<p>Accurate classification requires more than inspecting column names or sample values. The decision may depend on information that is not present in the file:</p>
+
+<ul>
+<li><p>whether an identifier is meaningful only within one system or can be linked to a real person;</p></li>
+<li><p>whether a coded value represents something ordinary or potentially sensitive;</p></li>
+<li><p>whether combinations of fields increase re-identification risk;</p></li>
+<li><p>and who will receive the data, how it will be used, and which policies apply.</p></li>
+</ul>
+
+<figure><img src="../assets/blogs/ai-knows-when-not-to-decide/02.png" alt="" loading="lazy" decoding="async">
+<figcaption>Why data classification needs human judgement</figcaption>
+</figure>
+
+<p>The same dataset may require a different classification when its purpose, recipient, or sharing conditions change.</p>
+
+<p>A sound decision therefore draws on three sources of evidence: the data itself, the policies governing it, and context of data sharing. That reframing changed the product goal. The <strong>system was designed to help an officer understand why a classification applied and reach a more informed and defensible decision.</strong></p>
+
+<p>The officer remained accountable. The assistant made the relevant evidence easier to find, interpret, and challenge.</p>
+
+<h2>2. Cut features that reliability cannot yet support</h2>
+
+<p>The first build included a broader assessment layer with privacy-risk and data-quality scores. The idea was to provide a fuller picture of the dataset before classification.</p>
+
+<p>After testing the concept with users and policy stakeholders, that layer was removed.</p>
+
+<figure><img src="../assets/blogs/ai-knows-when-not-to-decide/03.png" alt="" loading="lazy" decoding="async">
+<figcaption>Heuristic-based metrics for privacy risk and data quality analysis increased cognitive load, exposed edge cases that the heuristics could not handle reliably, and were not yet grounded tightly enough in policy as required by the users.</figcaption>
+</figure>
+
+<p>The scores introduced more risk than value. A confident but misleading risk score was worse than no score at all, so the product was narrowed to evidence-backed classification guidance.</p>
+
+<p><strong>The product was narrowed to the job users needed most and the system could support more reliably: reasoning through the classification itself.</strong></p>
+
+<h2>3. Give code, retrieval, the model, and the human distinct jobs</h2>
+
+<p>Signals such as field types, missing values, rare categories, formatting issues, and cross-column patterns were computed with deterministic code. These checks were predictable, inspectable, and easy to test.</p>
+
+<p>The remaining work involved ambiguous descriptions, overlapping policies, and context missing from the dataset. A questionnaire could collect context, though it could not inspect the data. A general chat model could synthesise inputs, though its conclusions would be hard to verify without controlled retrieval and structured evidence.</p>
+
+<p>The architecture assigned each component a clear role:</p>
+
+<ul>
+<li><p><strong>Code</strong> computed measurable signals from the data.</p></li>
+<li><p><strong>Retrieval</strong> supplied relevant policy evidence.</p></li>
+<li><p><strong>The language model</strong> synthesised the evidence, explained the recommendation, and asked for missing context.</p></li>
+<li><p><strong>The officer</strong> made the final decision.</p></li>
+</ul>
+
+<p>The backend gathered five inputs into a shared workspace: the selected datasets, computed signals, retrieved policy passages, conversation history, and user-provided context. The model then produced structured guidance containing the recommendation, evidence, citations, assumptions, and review items, and user feedback was captured for evaluation.</p>
+
+<h2>4. Define the decision boundary before tuning the answer</h2>
+
+<p>The assistant had three possible behaviours:</p>
+
+<ul>
+<li><p><strong>Recommend</strong> when the evidence was sufficient, with the supporting data signals and policy clauses.</p></li>
+<li><p><strong>Ask</strong> when the decision depended on context held by the user, such as whether an identifier could be linked to a person.</p></li>
+<li><p><strong>Escalate</strong> when policies conflicted, evidence remained insufficient, or the case required authorised review.</p></li>
+</ul>
+
+<figure><img src="../assets/blogs/ai-knows-when-not-to-decide/04.png" alt="" loading="lazy" decoding="async">
+<figcaption>These three behaviours help define the decision boundary—recommend with evidence, ask for missing context, and escalate for human verification—before tuning the final answer.</figcaption>
+</figure>
+
+<p>The main engineering challenge was defining when the assistant should choose each path. Language models often turn missing context into assumptions and present those assumptions with confidence.</p>
+
+<p>The response therefore separated:</p>
+
+<ul>
+<li><p>the recommended classification;</p></li>
+<li><p>data evidence;</p></li>
+<li><p>policy citations;</p></li>
+<li><p>model assumptions;</p></li>
+<li><p>unresolved questions;</p></li>
+<li><p>and items requiring human verification.</p></li>
+</ul>
+
+<p>This separation made each claim easier to inspect. A fact observed in the data, a policy requirement, a model assumption, and an authorised decision carry different levels of authority and should never appear interchangeable.</p>
+
+<h2>5. Ground every recommendation in evidence</h2>
+
+<p>The assistant used retrieval-augmented generation to bring relevant policy into each recommendation. In policy-heavy workflows, retrieval quality depends on more than semantic similarity. A useful passage must preserve the rule being applied, enough surrounding context to retain its meaning, its source and version, and the metadata needed for verification.</p>
+
+<p><strong>The retrieval pipeline therefore used clause-aware, citation-ready passages.</strong></p>
+
+<p>We also tested HyDE—Hypothetical Document Embeddings—which generates a hypothetical relevant answer and uses its embedding for retrieval. It can help with vague queries or wording that differs from the source material. Our dominant queries were simple and predictable, such as asking for the classification of an uploaded dataset.</p>
+
+<p>HyDE added another model call without producing a meaningful gain across Recall@k, Precision@k, MRR, citation relevance, or downstream response quality, so we disabled it on the default path.</p>
+
+<p>Grounding also had to be visible in the interface. Users could inspect the data signals available to the assistant, open the policy source behind a claim, and distinguish facts from policy requirements, model assumptions, and unresolved questions.</p>
+
+<h2>6. Turn user feedback into structured evaluation data</h2>
+
+<p>Early user testing revealed recurring failure patterns. We reviewed the observed failures and grouped recurring patterns into a domain-specific taxonomy covering misclassification, insufficient justification, incorrect data use, unsupported citations, missing assumptions, hallucination, and formatting errors.</p>
+
+<p>The taxonomy was built directly into the review interface. Users could accept, reject, or defer a response, select the relevant issue, and add free-text comments when needed.</p>
+
+<p>This provided more diagnostic signal than a thumbs-up or thumbs-down while requiring less effort than asking every reviewer to describe each problem from scratch. It also helped distinguish failures that can look similar at first glance, such as a wrong classification and a plausible classification supported by the wrong citation.</p>
+
+<p>The structured feedback made review easier and converted real failures into labelled evaluation data for analysis, expert adjudication, and regression testing.</p>
+
+<p>This workflow follows a practical evaluation pattern: inspect individual traces, derive a task-specific error taxonomy, collect structured expert feedback, and convert recurring failures into targeted tests.</p>
+
+<figure><img src="../assets/blogs/ai-knows-when-not-to-decide/05.png" alt="" loading="lazy" decoding="async">
+</figure>
+
+<h2>7. The production work lives outside the model</h2>
+
+<p>The system ran in an isolated private cloud environment with containerised frontend and backend services, private access to model and storage endpoints, least-privilege permissions, managed request filtering, durable review records, and infrastructure provisioned through Terraform.</p>
+
+<p>Traffic stayed within private connectivity. Firewall controls provided request filtering and rate limiting. Interactions, reviews, and feedback were stored for auditability, while infrastructure as code made deployments reproducible.</p>
+
+<p>These controls mattered because the assistant could process potentially sensitive datasets. Data protection had to cover the full path: before the data reached the model, while it was processed, and after a recommendation was produced.</p>
+
+<p>Deployment was only one part of production maturity. Policies, models, prompts, retrieval settings, and document corpora all change over time. A mature service needs policy versioning, traceability to the exact sources used, and an evaluation suite that reruns whenever a significant component changes.</p>
+
+<figure><img src="../assets/blogs/ai-knows-when-not-to-decide/06.png" alt="" loading="lazy" decoding="async">
+</figure>
+
+<h2>8. Evaluate the decision system, not only the label</h2>
+
+<p>The first benchmark used 30 synthetic datasets derived from representative metadata. Each dataset received the same question and was tested three times.</p>
+
+<p>Sensitivity classification reached about 86% accuracy, while security classification reached about 60%. The main failure mode was over-classification: when context was missing, the model often chose the stricter label.</p>
+
+<p>This conservative bias may reduce some disclosure risk, but it also blocks legitimate data use, adds unnecessary approvals, and reproduces the original bottleneck. </p>
+
+<p>The benchmark had clear limits. It was small, class-imbalanced, synthetic, and light on real-world noise, linked datasets, and expert adjudication. I treated the results as an early reliability signal.</p>
+
+<p>A stronger evaluation covered five layers:</p>
+
+<figure><img src="../assets/blogs/ai-knows-when-not-to-decide/07.png" alt="" loading="lazy" decoding="async">
+</figure>
+
+<h4>Consistency is not correctness</h4>
+
+<p>To evaluate repeated runs at scale, we used a more capable model as an LLM judge. The weighted rubric covered four dimensions: classification consistency, decision-rationale consistency, assumption consistency, and citation consistency.</p>
+
+<p>The weighted rubric was G-Eval-inspired, with explicit natural-language criteria and structured scoring. We applied it pairwise to compare repeated responses.</p>
+
+<p>This made consistency checks scalable across repeated outputs. It still measured stability rather than correctness. The next evaluation stage was to calibrate the judge against expert reviews and measure its false-pass and false-fail rates.</p>
+
+<figure><img src="../assets/blogs/ai-knows-when-not-to-decide/08.png" alt="" loading="lazy" decoding="async">
+</figure>
+
+<h4>Turn failures into regression tests</h4>
+
+<p>One recurring failure involved unfamiliar identifiers. The system could see an ID column, but the file did not reveal whether the identifier was internal or externally linkable. The model sometimes assumed the more sensitive interpretation and recommended a stricter classification.</p>
+
+<p>The missing input was contextual. The system needed to ask whether the identifier could resolve to a real person, and the evaluation suite needed cases that tested this behaviour.</p>
+
+<p>Each meaningful failure was recorded across five dimensions: observed failure, root cause, potential risk, required system change, and regression test.</p>
+
+<p>This turned user feedback into engineering progress.</p>
+
+<h2>The larger lesson</h2>
+
+<p>The hardest part was deciding what the assistant could infer, what evidence it had to show, when it needed more context, and whether it was improving a decision rather than merely producing a convincing answer.</p>
+
+<p>One user described the system as:</p>
+
+<blockquote><p><em>“A check and balance for data classification that I can easily justify and communicate to my boss.”</em></p></blockquote>
+
+<p>That was the real goal: making judgment more informed, consistent, and defensible.</p>
+      </article>
+    </main>
+  </body>
+</html>
